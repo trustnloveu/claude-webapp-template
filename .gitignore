@@ -16,6 +16,9 @@ coverage/
 __pycache__/
 .venv/
 
+# MCP 실행 기록 (Playwright MCP 스냅숏·스크린샷)
+.playwright-mcp/
+
 # OS·에디터
 .DS_Store
 .idea/
