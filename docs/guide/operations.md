@@ -29,7 +29,7 @@ Claude는 아래 항목을 제안만 하고, 확정은 내가 합니다.
 | 새 패키지·스킬·MCP 설치 | 앱의 승인 요청 |
 
 ## 팀 전환 시
-- [ ] main 브랜치 보호와 리뷰 필수 설정
+- [ ] `dev`·`prd` 브랜치 보호에 리뷰 필수(승인 1 이상) 추가
 - [ ] `.github/CODEOWNERS`의 담당자를 채우고 주석 해제
 - [ ] 이슈 트래커(Linear 또는 Jira) MCP 연결
 - [ ] 새 팀원 온보딩: `CLAUDE.md`, `docs/`, Trail-code 지도, `docs/guide/SETUP.md`

@@ -8,18 +8,14 @@
 - 아래 결정 로그와 확인 기록은 템플릿을 만들며 정한 근거다. 복사본에는 넘어가지 않는다.
 
 템플릿 상태: v1 완성 (2026-11-27 사람 승인. 고도화 1차 PR #4, 2차 PR #5, 관리판 전환 PR #6 병합, GitHub Template repository 설정 켬)
-다음 할 일: 아이디어가 정해지면 SETUP.md 2단계의 `gh repo create --template`으로 복사본을 만들어 복사본에서 0단계부터 시작한다. 템플릿을 더 고칠 일이 생기면 이 저장소에서 새 브랜치(chore/번호-설명)를 기본 브랜치 `release/v1`에서 만들고 PR도 `release/v1`로 보낸다(main 삭제 예정, 결정 로그). 작은 버전은 태그(v1.1.0 등)로 표시(사람 승인 후)
+다음 할 일: 아이디어가 정해지면 SETUP.md 2단계의 `gh repo create --template`으로 복사본을 만들어 복사본에서 0단계부터 시작한다. 템플릿을 더 고칠 일이 생기면 이 저장소에서 새 브랜치(chore/번호-설명)를 기본 브랜치 `release/v1`에서 만들고 PR도 `release/v1`로 보낸다(main은 삭제됨, 확인 기록). 작은 버전은 태그(v1.1.0 등)로 표시(사람 승인 후). 진행 중: 시안 흐름 변경(HTML 시안 + Stitch 기본, Figma 선택)을 `chore/012`로 반영
 
 ## 사람 확인 대기
 Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람이 승인하면 Claude가 해당 항목을 반영하고 이 목록에서 지웁니다.
 
 | 날짜 | 항목 | 종류 | 근거·위치 |
 |---|---|---|---|
-| 2026-11-27 | Homebrew 경고: 신뢰하지 않은 탭 `adoptopenjdk/openjdk`가 무시되고 있음. `brew untap adoptopenjdk/openjdk`로 지울지 결정 필요(사람 PC 설정) | 기타 | `brew install uv` 출력 |
-| 2026-11-27 | `packages/shared` 직접 수정 금지를 settings.json deny로 강제할지: 생성 파일 위치가 3단계에서 정해지므로 이번엔 넣지 않음(README.md는 사람이 채울 칸이 있어 폴더 전체 deny는 부적합). 3단계에서 생성 폴더가 정해지면 추가 제안 | 결정 | CLAUDE.md "구조", .claude/settings.json |
-| 2026-11-27 | 07~09 에이전트(Agency Agents 원문 234~567줄) 축약 여부: 긴 지시문이 판단을 방해할 수 있다는 참조 리포트 의견. 호출될 때만 읽히고 외부 원문이라 보류 후보 | 결정 | .claude/agents/security-auditor.md, a11y-auditor.md, appsec-engineer.md |
-| 2026-11-27 | 복사본 브랜치 전략 설계: 사람 의견은 "배포 버전 기준으로 로컬/개발/운영 3개로 나눠 쓴다". 정할 것: 브랜치 이름(예: dev·prod), 브랜치와 배포 환경 연결, "로컬"을 브랜치로 둘지, 훅·settings·ruleset 보호 대상. 주의: 템플릿 복사는 기본 브랜치 `release/v1`을 가져가므로 SETUP.md 2단계에 복사 직후 브랜치 정리 단계 필요. 함께 고칠 곳: docs/guide/SETUP.md(49·52·66줄), docs/guide/operations.md:32, docs/engineering/deploy.md:8 | 결정 | 이 대화, .claude/hooks/block-dangerous.sh |
-| 2026-11-27 | Figma 좌석이 "View"(starter 팀): 읽기는 되지만 Figma 파일 편집·MCP 쓰기 도구는 제한될 수 있음(추정). 2단계 시안을 Figma에서 직접 만들려면 편집 가능 좌석이 필요한지 확인 | 기타 | `mcp__figma__whoami` 결과 |
+| 2026-11-27 | 시안 흐름 변경 반영(PR `chore/012`): designer가 HTML 시안(`docs/design/mockups/`)을 만들고 사람이 결정, 탐색은 Stitch(기본·무료), Figma는 선택(유료). 결정 로그 참고 | 결과 승인 | 이 대화 |
 
 종류: 기획 승인 / 디자인 승인 / 계획 승인 / 결과 승인 / 단계 완료 / 결정(ADR 채택, MVP 범위, 스택, 디자인) / PR 병합 / 배포 / 비용 발생 / 기타
 
@@ -44,6 +40,11 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | 템플릿 고도화 2차 승인: 복사본은 GitHub 템플릿 저장소 기능(`gh repo create --template`)으로 만들고 `docs/PIPELINE-template.md`로 PIPELINE을 초기화(템플릿 저장소의 PIPELINE은 템플릿 자체 상태판으로 유지), SETUP.md를 실제 확인한 명령으로 갱신(3단계는 "템플릿에 포함, 확인만"), 사람용 안내서를 에이전트 9개 기준으로 수정 | 프로젝트 오너 | docs/PIPELINE-template.md, docs/guide/SETUP.md, docs/guide/roles.md, docs/guide/agents.md, README.md |
 | 2026-11-27 | superpowers는 설치하지 않는다: 자동 스킬(brainstorming, writing-plans, TDD)이 /refine·/plan-work·planner와 겹침. 필요하면 새 결정으로 재검토 | 프로젝트 오너 | docs/guide/SETUP.md 1단계 |
 | 2026-11-27 | 참조 리포트("클로드 코드 작업 프로세스 향상 가이드", 보리스 체르니 영상 요약) 기반 반영안 6개 적용 승인: R1 에이전트별 effort 기본값(planner·designer·qa·reviewer·security-auditor·appsec-engineer high, frontend-dev·backend-dev·a11y-auditor medium)과 /plan-work effort 칸, R2 외부 도구 관리 파일 Edit·Write deny(.specify/scripts·templates, speckit-*·ui-ux-pro-max 스킬), R3 CLAUDE.md "구조"·검증 목록 중복 정리(156→146줄), R4 총괄이 "수정 필요" 지적 근거 확인 후 재지시, R5 /refine 완료 조건을 판정 가능한 검사로·재량 칸, R6 세션 끝 스킬화 제안 | 프로젝트 오너 | CLAUDE.md, .claude/agents/, .claude/commands/, .claude/settings.json |
+| 2026-11-27 | Homebrew 탭 `adoptopenjdk/openjdk` 삭제(사람이 `brew untap` 실행). 이 탭으로 설치한 패키지 없음, Java는 SDKMAN(Corretto 8·11·17)으로 관리하며 영향 없음 | 프로젝트 오너 | 확인 기록 |
+| 2026-11-27 | `packages/shared` 생성 결과는 `packages/shared/generated/`에 두고 settings.json deny(Edit·Write)로 직접 수정을 막는다. deny는 Edit·Write 도구만 막으므로 Bash 생성 명령은 영향 없음 | 프로젝트 오너 | .claude/settings.json, packages/shared/README.md, CLAUDE.md "구조" |
+| 2026-11-27 | 07~09 에이전트(Agency Agents)는 원문을 유지한다. 복사본에서 실제 호출 시 보고 형식 위반·범위 이탈이 보이면 축약을 재검토 | 프로젝트 오너 | .claude/agents/security-auditor.md, appsec-engineer.md, a11y-auditor.md |
+| 2026-11-27 | 복사본 브랜치 전략: `feat/*` → `dev`(개발, 기본 브랜치, 병합 시 개발 서버 자동 배포) → `prd`(운영, 릴리스 PR 병합 시 수동 승인) + 태그 `vX.Y.Z`. 로컬은 브랜치를 두지 않고 내 PC에서 작업 브랜치를 실행하는 환경. 보호 대상에 `dev`·`prd` 추가(훅·settings.json deny·복사본 ruleset), main·master·release/*는 유지. 복사 직후 `release/v1`→`prd` 이름 변경, `dev` 생성·기본 브랜치 지정(SETUP.md 2단계) | 프로젝트 오너 | docs/guide/SETUP.md, docs/engineering/deploy.md, .claude/hooks/block-dangerous.sh, .claude/settings.json, CLAUDE.md "규칙" |
+| 2026-11-27 | 시안 흐름: designer가 `docs/design/mockups/`에 HTML 시안(+ `tokens.css`)을 만들고 사람과 수정·재생성하며 결정. 결정되면 Playwright로 PNG로 바꿔 외부 채널에 업로드(공유·보관용). 다음 수정은 저장소 HTML에서 시작하고, 외부 채널은 사람이 직접 고쳤을 때만 다시 읽는다. 탐색용 시안 도구는 Stitch(기본·무료, 사람이 웹에서 사용), Figma는 선택(유료). 업로드 흐름은 복사본 2단계 첫 시안 때 시험. 반영은 `chore/012` | 프로젝트 오너 | 이 대화 |
 | 2026-11-27 | Agency Agents 3개를 읽기 전용 에이전트로 추가: security-auditor(07), appsec-engineer(08), a11y-auditor(09). 원문 앞에 프로젝트 규칙 머리말, 역할 표·/plan-work 갱신, MIT 고지 | 프로젝트 오너 | .claude/agents/, CLAUDE.md, .claude/commands/plan-work.md, THIRD_PARTY_NOTICES.md |
 
 ## 확인 기록
@@ -67,4 +68,8 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | SETUP 5단계: 동작 확인 | 훅: 존재하지 않는 경로로 `.env` 읽기를 시도하자 "차단됨: .env 파일 접근"으로 막힘. gitleaks: 테스트 브랜치에서 무작위 가짜 GitHub 토큰을 커밋 시도 → `github-pat` 규칙으로 차단, 커밋 생기지 않음, 파일·테스트 브랜치 삭제. PIPELINE 요약: 새 세션에서 "현재 단계: 0. 환경"으로 요약함 |
 | 2026-11-27 | 에이전트 머리말 `effort:`가 적용되는지 | 적용됨. 문서: https://code.claude.com/docs/en/sub-agents "Frontmatter reference"에 `effort` 필드(low·medium·high·xhigh·max, 세션 effort보다 우선, `CLAUDE_CODE_EFFORT_LEVEL` 환경변수가 있으면 그 값이 우선, 호출 때 effort를 지정하면 그 값이 우선). 관찰(CLI 2.1.332): effort 없이 reviewer를 읽기 작업으로 호출 → 서브에이전트 기록(`~/.claude/projects/<프로젝트>/<세션>/subagents/*.jsonl`)에 `"effort":"high"`, 같은 방식으로 부른 내장 web-fetch는 `"medium"`. 이 PC에는 effort 환경변수 없음 |
 | 2026-11-27 | 기본 브랜치 `release/v1` 전환 결과 | `gh repo view`: 기본 브랜치 release/v1, isTemplate=true 유지. ruleset `release-branches`(대상 `refs/heads/release/*`, 예외 없음): `release/v1`에 deletion·non_fast_forward·pull_request(승인 0) 적용 확인. main은 보호 해제 후 삭제(사람이 직접 `git push origin --delete main`), `v1.0`·`chore/009` 브랜치 삭제. 훅·settings deny가 Claude의 `release/*` 푸시를 막아 `release/v1` 첫 푸시와 main 삭제는 사람이 터미널에서 실행. 전역 ~/.claude/CLAUDE.md 규칙 갱신. 이 기록의 PR이 release/v1 대상 첫 PR |
+| 2026-11-27 | GitHub "병합 시 작업 브랜치 자동 삭제"(Automatically delete head branches) | 사람이 켬. PR 병합 후 작업 브랜치가 GitHub에서 자동 삭제됨(내 PC의 로컬 브랜치는 남음) |
+| 2026-11-27 | Homebrew 탭 정리 | `brew untap adoptopenjdk/openjdk` 후 `brew tap` 결과 비어 있음. SDKMAN Java(`current` → 17.0.7-amzn)는 로그인 셸에서 정상 |
+| 2026-11-27 | Figma 좌석·MCP 한도 | `whoami`: Starter 플랜, View 좌석, 팀 admin. 문서(https://developers.figma.com/docs/figma-mcp-server/rate-limits-access/): Starter·View·Collab은 읽기 도구 월 20회, 쓰기 도구(`generate_figma_design` 등)는 한도 제외지만 좌석·파일 권한은 그대로 적용(View에서 쓰기 가능 여부 미확인). Professional 이상 Full·Dev 좌석은 하루 200회 |
+| 2026-11-27 | Google Stitch 무료 범위(검색, 공식 수치 미확인) | 월 약 350회(Standard) + 50~200회(Experimental). MCP(`stitch.googleapis.com`)는 Google Cloud 프로젝트·인증 필요, 사용량은 같은 한도에서 차감. 2026년 중 유료 플랜 예상, 무료 유지 보장 없음 |
 

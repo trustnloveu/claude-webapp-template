@@ -46,10 +46,31 @@ gh repo create <프로젝트-이름> --template trustnloveu/claude-webapp-templa
 cd <프로젝트-이름>
 ```
 
-- `--public` 대신 `--private`도 됩니다. 단, 무료 계정의 비공개 저장소는 main 브랜치 보호를 쓸 수 없는 것으로 보입니다(추정, 유료 Pro 필요). 보호가 필요하면 공개로 만들거나 Pro를 씁니다.
+- `--public` 대신 `--private`도 됩니다. 단, 무료 계정의 비공개 저장소는 브랜치 보호를 쓸 수 없는 것으로 보입니다(추정, 유료 Pro 필요). 보호가 필요하면 공개로 만들거나 Pro를 씁니다.
 - 폴더를 `cp -R`로 복사하지 않습니다. 템플릿의 git 이력과 개인 설정 파일(`.claude/settings.local.json`)까지 복사됩니다.
 
-PIPELINE을 초기 상태로 바꾸고 첫 변경을 올립니다. main 보호를 켜기 전에, 내 터미널에서 실행합니다(Claude의 훅은 main 커밋을 막습니다).
+### 브랜치 정리 (복사 직후, 내 터미널에서)
+복사본은 템플릿의 기본 브랜치 `release/v1` 하나만 가져옵니다. 복사본은 아래 3개 환경으로 나눠 씁니다.
+
+| 환경 | 브랜치 | 배포 |
+|---|---|---|
+| 로컬 | `feat/*` 등 작업 브랜치 (내 PC에서 실행, 브랜치를 따로 두지 않음) | 없음 |
+| 개발 | `dev` (기본 브랜치, PR이 향하는 곳) | `dev` 병합 시 개발 서버에 자동 |
+| 운영 | `prd` | `dev` → `prd` 릴리스 PR 병합 시(수동 승인), 태그 `vX.Y.Z`로 버전 표시 |
+
+아래 명령은 Claude가 아니라 내가 직접 실행합니다(Claude의 훅은 `dev`·`prd`·`release/*` 커밋과 푸시를 막습니다). 브랜치 보호를 켜기 전에 실행합니다.
+
+1. `release/v1`을 `prd`로 이름 바꾸기 (GitHub과 내 PC 둘 다)
+
+```bash
+gh api -X POST "repos/{owner}/{repo}/branches/release%2Fv1/rename" -f new_name=prd
+```
+
+```bash
+git fetch origin --prune && git branch -m release/v1 prd && git branch -u origin/prd prd
+```
+
+2. PIPELINE을 초기 상태로 바꾸고 첫 변경을 올립니다.
 
 ```bash
 cp docs/PIPELINE-template.md docs/PIPELINE.md
@@ -62,8 +83,19 @@ git push
 
 `docs/PIPELINE.md` 맨 위의 복사 안내 주석은 이때 지워도 되고, 나중에 Claude에게 지우라고 해도 됩니다.
 
+3. `prd`에서 `dev`를 만들어 올리고 기본 브랜치로 지정합니다.
+
+```bash
+git switch -c dev && git push -u origin dev
+```
+
+```bash
+gh repo edit --default-branch dev && git remote set-head origin -a
+```
+
+- [ ] `gh repo view --json defaultBranchRef`가 `dev`이고, `git branch -a`에 `release/v1`이 없는지 확인
 - [ ] `.claude/hooks/block-dangerous.sh`에 실행 권한이 있는지 확인(`ls -l`에 `x`). 없으면 `chmod +x .claude/hooks/block-dangerous.sh`
-- [ ] main 브랜치 보호: GitHub 저장소 Settings → Branches(또는 Rules)에서 PR 필수(승인 수 0), 관리자 포함 적용, 강제 푸시·삭제 금지. CI 통과 조건은 CI를 만든 뒤 추가
+- [ ] `dev`·`prd` 브랜치 보호: GitHub 저장소 Settings → Rules → Rulesets에서 대상 브랜치 `dev`, `prd`에 PR 필수(승인 수 0), 예외 없음(관리자 포함), 강제 푸시·삭제 금지. CI 통과 조건은 CI를 만든 뒤 추가
 - [ ] `pre-commit autoupdate`는 최신 릴리스보다 낮은 버전으로 올릴 때가 있습니다. 실행했다면 gitleaks 릴리스 페이지의 최신 버전과 비교합니다
 
 ## 3. 프로젝트 도구 (템플릿에 이미 포함)

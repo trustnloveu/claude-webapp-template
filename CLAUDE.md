@@ -85,7 +85,7 @@
 ## 구조
 docs/ 폴더와 문서별 내용은 docs/README.md(문서 지도)에 있다. 문서를 새로 만들면 맞는 폴더에 두고 docs/README.md의 폴더 구조와 "질문별로 찾기"를 갱신한다. 여기에는 지도에 없거나 지켜야 할 규칙이 있는 것만 적는다.
 - apps/web, apps/api: 프론트엔드·백엔드. 세부 규칙은 각 폴더의 CLAUDE.md
-- packages/shared: API 타입. OpenAPI에서 생성하며 직접 수정하지 않는다.
+- packages/shared: API 타입. OpenAPI에서 생성해 `packages/shared/generated/`에 두며 직접 수정하지 않는다(settings.json deny).
 - specs/: Spec Kit 스펙. Spec Kit 기본 위치라 저장소 루트에 둔다.
 - docs/decisions/: 기존 ADR은 고치지 않고 새 ADR로 대체한다.
 - .claude/agents: 서브에이전트 정의 파일만 둔다. 07~09는 Agency Agents 원문에 프로젝트 규칙 머리말을 붙인 것이다.
@@ -112,7 +112,8 @@ docs/ 폴더와 문서별 내용은 docs/README.md(문서 지도)에 있다. 문
 - 로컬 실행: <명령>
 
 ## 규칙
-- 보호 브랜치(main, release/*)에 직접 커밋하지 않는다. 브랜치: 유형/번호-설명 (예: feat/012-login)
+- 보호 브랜치(dev, prd, main, release/*)에 직접 커밋하지 않는다. 브랜치: 유형/번호-설명 (예: feat/012-login)
+- 작업 브랜치는 기본 브랜치에서 만들고 PR도 기본 브랜치로 보낸다(복사본 `dev`, 템플릿 저장소 `release/v1`). 운영 반영은 `dev` → `prd` 릴리스 PR과 태그로 하며 사람이 병합한다(docs/engineering/deploy.md).
 - 커밋 메시지는 Conventional Commits를 따른다. 예: feat(api): 로그인 엔드포인트 추가
 - PR 하나에는 기능 하나만 담는다. PR은 만들 수 있지만 병합하지 않는다.
 - 테스트를 먼저 쓰고(TDD), 테스트를 고치거나 건너뛰어 통과시키지 않는다.
