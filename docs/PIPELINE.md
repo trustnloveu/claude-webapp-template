@@ -3,7 +3,7 @@
 > 대상: 공용
 
 현재 단계: 0. 환경
-다음 할 일: SETUP.md 1·2단계 완료, 3단계는 Trail-code만 보류하고 완료(2026-11-27, PR chore/002-project-tools 병합 대기). 다음은 SETUP.md 4단계(MCP), 5단계(동작 확인). 새 에이전트 07~09와 Spec Kit 스킬은 새 세션에서 목록에 뜨는지 확인. Trail-code는 실제 프로젝트 복사본에 코드 뼈대가 생긴 뒤(3단계 구현 준비 이후) `trail init --dry-run`부터. 템플릿 고도화는 별도 세션에서 브랜치·PR로 진행
+다음 할 일: SETUP.md 1~5단계 완료(2026-11-27, 3단계는 Trail-code만 보류, 4·5단계는 PR chore/003-mcp-check 병합 대기). 다음은 사람이 "0단계 완료"를 승인하면 0단계를 체크하고 1단계(기획: 아이디어·요구사항 원문)로 넘어간다. DB MCP는 백엔드 작업 시작 때, Sentry MCP는 배포 후 추가. Trail-code는 실제 프로젝트 복사본에 코드 뼈대가 생긴 뒤(3단계 구현 준비 이후) `trail init --dry-run`부터. 템플릿 고도화는 별도 세션에서 브랜치·PR로 진행
 
 ## 사람 확인 대기
 Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람이 승인하면 Claude가 해당 항목을 반영하고 이 목록에서 지웁니다.
@@ -15,6 +15,8 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | SETUP.md 3단계 명령 갱신 제안(위 항목에 추가): Spec Kit `uvx --from git+https://github.com/github/spec-kit.git@v1.4.5 specify init --here --force --integration claude --script sh --non-interactive`, 명령이 아니라 `.claude/skills/speckit-*`에 설치됨, UI UX Pro Max는 `gh skill install nextlevelbuilder/ui-ux-pro-max-skill .claude/skills/ui-ux-pro-max --agent claude-code --scope project --pin v2.15.0`, Trail-code는 코드가 생긴 뒤 `DO_NOT_TRACK=1`과 `--dry-run` 먼저, Agency Agents는 설치 스크립트 대신 파일 단위로 복사 | 기타 | docs/guide/SETUP.md 3단계 |
 | 2026-11-27 | 사람용 안내서가 에이전트 6개 기준이라 CLAUDE.md(9개)와 다름: docs/guide/roles.md, docs/guide/agents.md, README.md 13줄. 수정할지 결정 필요 | 기타 | CLAUDE.md "역할" |
 | 2026-11-27 | Homebrew 경고: 신뢰하지 않은 탭 `adoptopenjdk/openjdk`가 무시되고 있음. `brew untap adoptopenjdk/openjdk`로 지울지 결정 필요(사람 PC 설정) | 기타 | `brew install uv` 출력 |
+| 2026-11-27 | 0단계 완료 승인: SETUP.md 1~5단계 확인 끝(Trail-code 보류, DB·Sentry MCP는 나중). 승인하면 "단계"의 0을 체크하고 "현재 단계"를 1. 기획으로 바꾼다 | 단계 완료 | 이 파일 "확인 기록" 2026-11-27 4·5단계 줄 |
+| 2026-11-27 | Figma 좌석이 "View"(starter 팀): 읽기는 되지만 Figma 파일 편집·MCP 쓰기 도구는 제한될 수 있음(추정). 2단계 시안을 Figma에서 직접 만들려면 편집 가능 좌석이 필요한지 확인 | 기타 | `mcp__figma__whoami` 결과 |
 
 종류: 기획 승인 / 디자인 승인 / 계획 승인 / 결과 승인 / 단계 완료 / 결정(ADR 채택, MVP 범위, 스택, 디자인) / PR 병합 / 배포 / 비용 발생 / 기타
 
@@ -68,5 +70,7 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | settings.json `Skill(...)` deny가 동작하는지 | `Skill(speckit-implement)` 호출 시 "blocked by permission rules"로 차단됨(이 세션에서 확인) |
 | 2026-11-27 | 3단계 설치 도구 버전 | uv 0.13.10(brew, 다른 패키지 변경 없음), Spec Kit v1.4.5(uvx 일회 실행, 전역 설치 없음), UI UX Pro Max v2.15.0(gh skill, 70개 파일). UI UX Pro Max 스크립트는 표준 라이브러리만 쓰고 네트워크·셸 실행 없음(import 확인), 검색 동작 확인 |
 | 2026-11-27 | Trail-code 0.30.5 설치 영향(README·소스 확인, 미설치) | 전역 `~/.claude/settings.json`에 훅 5개(SessionStart, UserPromptSubmit, PreToolUse Bash, PostToolUse, Stop)와 상태줄, 프로젝트 `.mcp.json`·`.claude/skills/trail/`·`.trail/`. npm postinstall이 익명 설치 통계 전송(`DO_NOT_TRACK=1`로 차단). `trail init`은 과거 세션을 Claude Sonnet으로 읽고(사용량 소모) 최근 병합 PR 50개 리뷰를 읽음. Bash 훅은 오류 시 통과(fail-open)라 block-dangerous.sh와 직접 충돌은 없어 보임(추정) |
-| 2026-11-27 | 새 에이전트 07~09가 Agent 목록에 뜨는지 | 미확인. 이 세션은 시작 때 목록을 읽어 반영 안 됨 → 새 세션에서 확인 |
+| 2026-11-27 | 새 에이전트 07~09가 Agent 목록에 뜨는지 | 확인됨. 새 세션 Agent 목록에 security-auditor, appsec-engineer, a11y-auditor가 뜸. 스킬 목록에도 `speckit-*` 9개와 `ui-ux-pro-max`가 뜸 |
+| 2026-11-27 | SETUP 4단계: MCP 연결 | Figma: `.mcp.json`의 HTTP `https://mcp.figma.com/mcp`(프로젝트 범위)로 연결, `whoami`로 인증 확인(파일 작업 없음). Playwright: `npx @playwright/mcp@latest`(0.0.86)로 연결, 설치된 Google Chrome을 써서 브라우저 추가 설치 불필요(about:blank로 확인). 실행 시 저장소에 `.playwright-mcp/`가 생겨 .gitignore에 추가. 터미널 CLI(`claude mcp list`)에서는 두 서버가 "승인 대기"로 나옴 → CLI로 쓸 때 처음 한 번 승인 필요. 켜 둔 MCP 5개: 프로젝트 2(playwright, figma) + claude.ai 커넥터 2(Claude Docs, Notion) + 앱 기본 1(scheduled-tasks), 전역 사용자 범위 0 → 기준(5~6) 안. DB·Sentry MCP는 추가 안 함 |
+| 2026-11-27 | SETUP 5단계: 동작 확인 | 훅: 존재하지 않는 경로로 `.env` 읽기를 시도하자 "차단됨: .env 파일 접근"으로 막힘. gitleaks: 테스트 브랜치에서 무작위 가짜 GitHub 토큰을 커밋 시도 → `github-pat` 규칙으로 차단, 커밋 생기지 않음, 파일·테스트 브랜치 삭제. PIPELINE 요약: 새 세션에서 "현재 단계: 0. 환경"으로 요약함 |
 
