@@ -1,0 +1,7 @@
+# 설치(macOS): brew install pre-commit && pre-commit install
+# 버전 갱신: pre-commit autoupdate 후 gitleaks 릴리스 페이지의 최신 태그와 비교 (autoupdate가 최신 패치 태그를 놓칠 수 있음)
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1   # 2026-11-27 확인한 최신 릴리스
+    hooks:
+      - id: gitleaks
