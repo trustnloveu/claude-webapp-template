@@ -20,7 +20,10 @@ docs/design/mockups/
 2. **와이어프레임**: designer가 화면 상세(docs/design/ux.md)를 바탕으로 회색 상자 수준의 HTML을 만듭니다. 화면 구성과 흐름을 먼저 맞춥니다.
 3. **시안 다듬기**: 사람이 브라우저로 HTML을 열어 보고 의견을 주면, designer가 수정합니다. 배치를 크게 바꿀 때만 다시 생성합니다.
 4. **결정**: 사람이 시안을 결정했다고 말하면 designer가 docs/design/README.md의 화면별 상태를 "시안 완료"로 적습니다. "승인"은 사람만 바꿉니다.
-5. **내보내기**: designer가 Playwright로 결정된 HTML을 PNG로 저장합니다(`exports/`, 데스크톱·모바일 크기). Playwright MCP의 저장 위치와 `file://` 접근이 되는지는 복사본의 첫 시안 때 시험합니다.
+5. **내보내기**: designer가 Playwright로 결정된 HTML을 PNG로 저장합니다(`exports/`, 데스크톱 1440px·모바일 375px). Playwright MCP는 `file://` 주소를 막으므로 로컬 서버로 엽니다(2026-11-27 확인).
+   - 서버: `python3 -m http.server 8765 --bind 127.0.0.1` (`docs/design/mockups/`에서, 백그라운드로 실행하고 끝나면 종료)
+   - 열기: `http://127.0.0.1:8765/S-001.html` → 창 크기 조절 → 전체 페이지 스크린샷
+   - 저장 이름은 저장소 기준 상대 경로로 지정합니다(`docs/design/mockups/exports/S-001-desktop-20261127.png`). 저장소 밖 경로는 Playwright MCP가 거부합니다.
 6. **업로드**: PNG를 외부 채널(Stitch 또는 Figma)에 올립니다. 외부 전송이므로 사람이 직접 올리거나, 사람이 승인한 뒤에만 Claude가 올립니다.
 7. **추가 요청**: 다음 수정은 항상 이 폴더의 HTML에서 시작해 3~6을 반복합니다. 외부 채널의 결과는 사람이 거기서 직접 고쳤을 때만 다시 읽습니다. 의견(댓글)은 이미지보다 글로 가져옵니다.
 
