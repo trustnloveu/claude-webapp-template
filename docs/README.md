@@ -33,7 +33,8 @@ docs/
 │
 ├─ design/                ② UI/UX — 어떤 화면에서 어떻게 보이나     담당: 02 디자인
 │  ├─ ux.md                  IA · 화면 목록 · 화면 흐름 · 화면 상세
-│  └─ README.md              디자인 컨셉 · 화면별 시안 상태 · 토큰 · 컴포넌트 상태 · Figma 링크
+│  ├─ README.md              디자인 컨셉 · 화면별 시안 상태 · 토큰 · 컴포넌트 상태 · 시안 위치(외부 채널·Figma 링크)
+│  └─ mockups/               HTML 시안 원본 · tokens.css · Stitch 탐색 결과(stitch/) · 내보낸 PNG(exports/) · 흐름(README.md)
 │
 ├─ engineering/           ③ 기술 — 무엇으로, 어떤 구조로             담당: 총괄, 04 백엔드
 │  ├─ tech-stack.md          스택 · 도구 · 폴더 구조 · 패턴 · 코드 크기 기준 · 라이브러리 · 보안 기준 (단일 기준)
@@ -63,6 +64,7 @@ docs/
 | 이 기능이 정확히 무엇을 해야 하나 (완료 기준) | 루트 [specs/](../specs/README.md)의 기능 명세와 인수 기준 |
 | 이 화면은 어떤 상태와 동작을 가져야 하나 | [design/ux.md](design/ux.md)의 화면 상세 |
 | 색·간격·컴포넌트는 무엇을 써야 하나 | [design/README.md](design/README.md)의 토큰 |
+| 화면이 어떻게 보이나(시안), 시안은 어떻게 만들고 올리나 | [design/mockups/](design/mockups/README.md) |
 | 어떤 언어·라이브러리·폴더 구조를 써야 하나 | [engineering/tech-stack.md](engineering/tech-stack.md) |
 | 함수·파일 크기, 커버리지, 보안 규칙은 | [engineering/tech-stack.md](engineering/tech-stack.md)의 "코드 크기와 테스트 기준", "보안 기준" |
 | DB 백업과 복구는 어떻게 하나 | [engineering/deploy.md](engineering/deploy.md)의 "백업·복구" |
