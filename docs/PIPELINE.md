@@ -2,8 +2,8 @@
 
 > 대상: 공용
 
-현재 단계: 1. 기획
-다음 할 일: 0단계 완료(2026-11-27 사람 승인, PR chore/003-mcp-check 병합 대기). 다음은 1단계 기획: 사람이 아이디어·요구사항을 주면 총괄이 원문을 docs/planning/requirements.md에 남기고(필요하면 /refine), planner에 분석을 맡긴다. 기능 하나가 끝날 때처럼 새 세션에서 시작하기를 권장. DB MCP는 백엔드 작업 시작 때, Sentry MCP는 배포 후 추가. Trail-code는 실제 프로젝트 복사본에 코드 뼈대가 생긴 뒤(3단계 구현 준비 이후) `trail init --dry-run`부터. 템플릿 고도화는 별도 세션에서 브랜치·PR로 진행
+현재 단계: 0. 환경
+다음 할 일: SETUP.md 1~5단계 완료(2026-11-27, 3단계는 Trail-code만 보류, 4·5단계는 PR chore/003-mcp-check 병합 대기). 다음은 템플릿 고도화·최적화(0단계 범위: 저장소·CLAUDE.md·훅, 별도 세션에서 브랜치·PR). 고도화가 끝나면 사람이 "0단계 완료"를 승인하고 1단계(기획: 아이디어·요구사항 원문)로 넘어간다. DB MCP는 백엔드 작업 시작 때, Sentry MCP는 배포 후 추가. Trail-code는 실제 프로젝트 복사본에 코드 뼈대가 생긴 뒤(3단계 구현 준비 이후) `trail init --dry-run`부터. 템플릿 고도화는 별도 세션에서 브랜치·PR로 진행
 
 ## 사람 확인 대기
 Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람이 승인하면 Claude가 해당 항목을 반영하고 이 목록에서 지웁니다.
@@ -15,6 +15,8 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | SETUP.md 3단계 명령 갱신 제안(위 항목에 추가): Spec Kit `uvx --from git+https://github.com/github/spec-kit.git@v1.4.5 specify init --here --force --integration claude --script sh --non-interactive`, 명령이 아니라 `.claude/skills/speckit-*`에 설치됨, UI UX Pro Max는 `gh skill install nextlevelbuilder/ui-ux-pro-max-skill .claude/skills/ui-ux-pro-max --agent claude-code --scope project --pin v2.15.0`, Trail-code는 코드가 생긴 뒤 `DO_NOT_TRACK=1`과 `--dry-run` 먼저, Agency Agents는 설치 스크립트 대신 파일 단위로 복사 | 기타 | docs/guide/SETUP.md 3단계 |
 | 2026-11-27 | 사람용 안내서가 에이전트 6개 기준이라 CLAUDE.md(9개)와 다름: docs/guide/roles.md, docs/guide/agents.md, README.md 13줄. 수정할지 결정 필요 | 기타 | CLAUDE.md "역할" |
 | 2026-11-27 | Homebrew 경고: 신뢰하지 않은 탭 `adoptopenjdk/openjdk`가 무시되고 있음. `brew untap adoptopenjdk/openjdk`로 지울지 결정 필요(사람 PC 설정) | 기타 | `brew install uv` 출력 |
+| 2026-11-27 | 0단계 완료 승인(템플릿 고도화 후): SETUP.md 1~5단계 확인 끝(Trail-code 보류, DB·Sentry MCP는 나중). 한 번 승인했으나 고도화를 0단계 안에서 하기로 하고 사람 지시로 되돌림. 고도화가 끝나면 다시 승인받아 "단계"의 0을 체크하고 "현재 단계"를 1. 기획으로 바꾼다 | 단계 완료 | 이 파일 "확인 기록" 2026-11-27 4·5단계 줄 |
+| 2026-11-27 | 템플릿 고도화 항목 제안: 이 PIPELINE에 템플릿 자체의 결정 로그·확인 기록·0단계 상태가 쌓여 있어, 실제 프로젝트 복사본에 그대로 넘어간다. 복사본을 만들 때 PIPELINE을 초기 상태로 돌리는 방법(예: 빈 PIPELINE 템플릿 파일, 템플릿 기록은 별도 문서로 분리)을 정할지 | 결정 | 이 파일, docs/guide/SETUP.md 2단계 |
 | 2026-11-27 | Figma 좌석이 "View"(starter 팀): 읽기는 되지만 Figma 파일 편집·MCP 쓰기 도구는 제한될 수 있음(추정). 2단계 시안을 Figma에서 직접 만들려면 편집 가능 좌석이 필요한지 확인 | 기타 | `mcp__figma__whoami` 결과 |
 
 종류: 기획 승인 / 디자인 승인 / 계획 승인 / 결과 승인 / 단계 완료 / 결정(ADR 채택, MVP 범위, 스택, 디자인) / PR 병합 / 배포 / 비용 발생 / 기타
@@ -22,7 +24,7 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 ## 단계
 단계 체크와 "현재 단계" 변경은 사람이 승인한 뒤에만 합니다.
 
-- [x] 0. 환경 → 이 저장소, CLAUDE.md, 훅 (docs/guide/SETUP.md)
+- [ ] 0. 환경 → 이 저장소, CLAUDE.md, 훅 (docs/guide/SETUP.md)
 - [ ] 1. 기획: 요구사항 분석 → 질문 → 정형화 → 고도화 → **기획 승인** — docs/planning/requirements.md, docs/planning/idea.md, specs/ (1-planning-requirements.md, 1-planning-spec.md)
 - [ ] 2. UI/UX: UX 설계 → UI 정형화 → Figma 시안 → 고도화 → **디자인 승인** — docs/design/ux.md, docs/design/README.md, Figma (2-uiux.md)
 - [ ] 3. 구현 준비: 기술 스택·구조(ADR), 아키텍처, API 계약, DB, 뼈대 → 스테이징 URL — docs/engineering/tech-stack.md, docs/engineering/architecture.md, OpenAPI, docs/engineering/database.md (3-build-setup.md)
@@ -54,7 +56,6 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | Trail-code 보류: 전역 훅 5개, 에이전트가 결정을 "학습"으로 자동 저장(결정 로그와 이중 기록), 템플릿에 코드 없음. 실제 프로젝트에 코드가 생긴 뒤 dry-run 확인 후 재검토 | 프로젝트 오너 | 이 PIPELINE "다음 할 일" |
 | 2026-11-27 | UI UX Pro Max v2.15.0을 프로젝트 범위에 설치. `design-system/` 폴더를 만들지 않고, 스타일·색·글꼴 결정은 designer만, frontend-dev는 구현 점검에만 사용 | 프로젝트 오너 | CLAUDE.md "도구 사용" |
 | 2026-11-27 | Agency Agents 3개를 읽기 전용 에이전트로 추가: security-auditor(07), appsec-engineer(08), a11y-auditor(09). 원문 앞에 프로젝트 규칙 머리말, 역할 표·/plan-work 갱신, MIT 고지 | 프로젝트 오너 | .claude/agents/, CLAUDE.md, .claude/commands/plan-work.md, THIRD_PARTY_NOTICES.md |
-| 2026-11-27 | 0단계(환경) 완료: SETUP.md 1~5단계 확인 끝(Trail-code 보류, DB·Sentry MCP는 백엔드·배포 때). 현재 단계를 1. 기획으로 | 프로젝트 오너 | 이 파일 "확인 기록" SETUP 4·5단계 줄 |
 
 ## 확인 기록
 사실 확인 결과를 남깁니다. 결정이 아닙니다.
