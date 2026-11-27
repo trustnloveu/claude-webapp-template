@@ -2,7 +2,7 @@
 
 > 대상: 사람
 
-「AI 활용 기획·개발 실무 프롬프트 35선」을 이 저장소의 파이프라인(0~6단계)과 Claude Code 도구에 맞게 고친 것입니다.
+「AI 활용 기획·개발 실무 프롬프트 35선」을 이 저장소의 파이프라인(0~5단계)과 Claude Code 도구에 맞게 고친 것입니다.
 원본의 ChatGPT(기획)·Codex(개발) 역할은 모두 Claude Code가 맡고, 결과는 대화가 아니라 저장소 파일로 남깁니다.
 
 ## 쓰는 법
@@ -16,6 +16,17 @@
 ## 단계별 목록
 
 우선순위는 기획 → UI/UX → 구현입니다. 파일 번호는 docs/PIPELINE.md의 단계 번호와 같습니다.
+
+```mermaid
+flowchart LR
+    R["요청 정리<br/>/refine · request-guide"] -.-> S1
+    S1["1. 기획<br/>1-planning-requirements<br/>1-planning-spec"] --> S2["2. UI/UX<br/>2-uiux"]
+    S2 --> S3["3. 구현 준비<br/>3-build-setup"]
+    S3 --> S4["4. 기능 구현 루프<br/>4-feature-loop"]
+    S4 -- "기능마다 반복" --> S4
+    S4 --> S5["5. 출시·운영<br/>5-release"]
+    C["common.md<br/>(CLAUDE.md로 자동 적용)"] -.-> S1 & S2 & S3 & S4 & S5
+```
 
 | 파이프라인 단계 | 담당 | 파일 | 프롬프트 (원본 번호) |
 |---|---|---|---|
