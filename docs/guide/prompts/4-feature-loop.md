@@ -16,7 +16,7 @@
 | 계획 | 총괄 | `/plan-work` → **계획 승인** | — |
 | 백엔드 | 04 backend-dev | 메인 세션이 지시 | — |
 | 프론트엔드 | 03 frontend-dev | 메인 세션이 지시 | — |
-| 검증 | 05 qa + 06 reviewer + 02 designer + 01 planner | 메인 세션이 동시에 지시 | 원인이 기획·디자인이면 그 단계로 |
+| 검증 | 05 qa + 06 reviewer + 02 designer + 01 planner (+ 화면이면 09 a11y-auditor, 보안 변경이면 07 security-auditor, 보안 핵심 "대"면 08 appsec-engineer) | 메인 세션이 동시에 지시 | 원인이 기획·디자인이면 그 단계로 |
 | 마무리 | 사람 | **결과 승인** → PR → 병합 | — |
 
 ## Figma → 코드 (원본 ⑲) — 5-5
