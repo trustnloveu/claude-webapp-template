@@ -2,6 +2,7 @@
 name: security-auditor
 description: Agent 07 AI 코드 보안 점검 에이전트. AI가 작성한 코드에서 자주 생기는 시크릿 노출, DB 접근 정책(행 수준 보안) 구멍, 프롬프트 인젝션 지점을 찾는다. 인증·권한·시크릿·DB 정책·LLM 호출이 바뀌는 작업의 검증에서 reviewer와 함께 호출한다. 읽기 전용이며 코드를 수정하지 않는다.
 tools: Read, Grep, Glob, Bash
+effort: high
 ---
 
 # 프로젝트 규칙 (원문보다 우선)

@@ -69,8 +69,8 @@
 4. 구현 준비(기술 기준, API 계약, DB)가 안 되어 있으면 먼저 한다.
 5. /plan-work 형식의 계획서(규모, 작업 목록, 담당, 검증 계획)를 보여 주고 계획 승인을 받는다. 규모 "소"는 사람이 원하면 총괄이 직접 한다. 이때도 계획은 보여 준다.
 6. 작업마다 담당 에이전트에 작업 지시서(작업 ID, 범위, 제외, 완료 조건, 참고 문서)를 건넨다. 선행 작업 순서를 지킨다.
-7. 구현 보고를 받으면 검증 에이전트(qa, reviewer, 화면 작업이면 designer와 a11y-auditor, 기능 작업이면 planner, 인증·권한·시크릿·DB 정책·LLM 호출이 바뀌면 security-auditor, 보안 핵심 기능의 "대" 규모 작업이면 appsec-engineer)에 작업 지시서와 보고를 건넨다. 서로 독립적이므로 동시에 호출한다.
-8. 하나라도 "수정 필요"면 정리해서 같은 작업 에이전트에 다시 지시한다. 원인이 기획·디자인이면 해당 단계로 돌려보낸다. 왕복은 최대 2회이고, 넘거나 "사람 판단 필요"가 있으면 사람에게 넘긴다.
+7. 구현 보고를 받으면 계획서 [검증 계획]의 검증 에이전트(규모별 선택은 /plan-work 표)에 작업 지시서와 보고를 건넨다. 서로 독립적이므로 동시에 호출한다.
+8. 하나라도 "수정 필요"면 총괄이 먼저 각 지적의 근거(파일:줄, 재현 방법, 실패 시나리오)를 직접 확인한다. 근거가 확인되지 않는 지적은 "제안"으로 내린다. 확인된 지적만 정리해서 같은 작업 에이전트에 다시 지시한다. 원인이 기획·디자인이면 해당 단계로 돌려보낸다. 왕복은 최대 2회이고, 넘거나 "사람 판단 필요"가 있으면 사람에게 넘긴다.
 9. 모두 통과하면 통합 보고(변경 요약, 검증별 판정과 실행한 검사, 남은 결함·제안, 위험)를 하고 결과 승인을 받는다. 그 뒤 PR을 만든다. 병합은 사람이 한다.
 10. 고도화 제안(검증·운영에서 나온 것 포함)은 바로 만들지 않고 requirements.md "고도화 제안"에 모은다. planner가 정리하고, 사람이 채택한 것만 1단계부터 다시 진행한다.
 
@@ -80,27 +80,17 @@
 - 끝내기 전에 docs/PIPELINE.md의 "다음 할 일"과 기능 표를 갱신하고, 승인이 필요한 항목을 "사람 확인 대기"에 추가한다.
 - 단계 체크, "현재 단계" 변경, 결정 로그 추가, 기능 표의 승인·병합 칸은 사람이 이번 대화에서 명시적으로 승인한 뒤에만 한다.
 - 다음 세션에도 필요한 규칙이 생기면 이 파일에 추가하자고 제안한다.
+- 이번 세션에 결과가 좋았고 같은 순서·기준으로 반복할 절차가 있었으면 스킬(.claude/skills/<이름>/SKILL.md)로 만들자고 제안한다. 스킬에는 언제 쓰는지, 순서, 통과 기준을 적는다. 만들기 전에 내용을 보여 주고 승인을 받는다.
 
 ## 구조
-문서 지도는 docs/README.md에 있다. 문서를 새로 만들 때는 아래 폴더 중 맞는 곳에 두고 docs/README.md의 폴더 구조와 "질문별로 찾기"를 갱신한다.
-- apps/web: 프론트엔드 (세부 규칙은 apps/web/CLAUDE.md)
-- apps/api: 백엔드 (세부 규칙은 apps/api/CLAUDE.md)
+docs/ 폴더와 문서별 내용은 docs/README.md(문서 지도)에 있다. 문서를 새로 만들면 맞는 폴더에 두고 docs/README.md의 폴더 구조와 "질문별로 찾기"를 갱신한다. 여기에는 지도에 없거나 지켜야 할 규칙이 있는 것만 적는다.
+- apps/web, apps/api: 프론트엔드·백엔드. 세부 규칙은 각 폴더의 CLAUDE.md
 - packages/shared: API 타입. OpenAPI에서 생성하며 직접 수정하지 않는다.
-- docs/PIPELINE.md: 진행 상태판
-- docs/planning/: 기획 — requirements.md(요구사항 원문·분석·질문·추적·고도화), idea.md, spec-guide.md(스펙 작성 기준)
-- specs/: Spec Kit 스펙(기능 명세, 사용자 시나리오, 인수 기준). Spec Kit 기본 위치라 저장소 루트에 둔다.
-- .specify/: Spec Kit 설정·템플릿·스크립트 (Spec Kit이 관리, 직접 수정하지 않음). 프로젝트 원칙 파일 .specify/memory/constitution.md도 여기 있다(미사용, 프로젝트 원칙은 이 파일이 기준)
-- .claude/skills/speckit-*: Spec Kit 스킬 9개 (Spec Kit v1.4.5가 설치·관리, 직접 수정하지 않음)
-- .claude/skills/ui-ux-pro-max: UI/UX 규칙·검색 스킬 (gh skill로 v2.15.0 고정 설치, 직접 수정하지 않음)
-- docs/design/: UI/UX — ux.md(IA, 화면 목록, 화면 흐름, 화면 상세), README.md(컨셉, 화면별 디자인 상태, 토큰, 컴포넌트 상태)
-- docs/engineering/: 기술 — tech-stack.md(단일 기준), architecture.md, database.md, deploy.md
-- docs/decisions/: ADR (기존 ADR은 고치지 않고 새 ADR로 대체)
-- docs/requests/: 기능 단위 요청서
-- docs/reports/: 테스트·보안 점검 보고서
-- docs/guide/: 사람용 안내서
-- .claude/commands: /refine(요청 접수·정리), /plan-work(단계 판정·구현 계획)
-- .claude/agents: 서브에이전트 정의 파일만 둔다(planner, designer, frontend-dev, backend-dev, qa, reviewer, security-auditor, appsec-engineer, a11y-auditor). 07~09는 Agency Agents 원문에 프로젝트 규칙 머리말을 붙인 것이다(출처는 THIRD_PARTY_NOTICES.md)
-- THIRD_PARTY_NOTICES.md: 저장소에 넣은 외부 파일(Spec Kit, UI UX Pro Max, Agency Agents)의 라이선스 고지
+- specs/: Spec Kit 스펙. Spec Kit 기본 위치라 저장소 루트에 둔다.
+- docs/decisions/: 기존 ADR은 고치지 않고 새 ADR로 대체한다.
+- .claude/agents: 서브에이전트 정의 파일만 둔다. 07~09는 Agency Agents 원문에 프로젝트 규칙 머리말을 붙인 것이다.
+- 외부 도구가 관리하는 파일은 직접 수정하지 않는다: .specify/(Spec Kit v1.4.5), .claude/skills/speckit-*(9개), .claude/skills/ui-ux-pro-max(v2.15.0). 스크립트·템플릿·스킬은 settings.json deny로 막혀 있다. 업그레이드는 사람이 지시할 때 설치 명령으로 한다. .specify/memory/constitution.md는 쓰지 않으며 프로젝트 원칙은 이 파일이 기준이다.
+- 외부 파일의 라이선스 고지는 THIRD_PARTY_NOTICES.md에 있다.
 
 ## 파일 읽는 대상
 파일마다 제목 아래에 `> 대상:` 표시가 있다.
