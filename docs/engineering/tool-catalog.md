@@ -40,7 +40,7 @@
 | 브라우저 | Playwright MCP (microsoft/playwright-mcp) | 시안 PNG 내보내기, 화면 확인, E2E | designer, qa | 40k (2.0k) | 2026-11-28 | 프로젝트 | 시안 내보내기 동작 확인됨 |
 | 디자인 연동 | Figma MCP (공식) | Figma 시안 읽기(선택) | designer, frontend-dev | — | — | 프로젝트 | 무료 좌석은 읽기 월 20회 |
 | 다이어그램 | diagram-design (cathrynlavery/diagram-design) | 구조도·흐름도, SVG·PNG 내보내기 | 총괄, designer | 74k (10.0k) | 2026-11-28 | 전역 | 열린 이슈 33 |
-| 한국어 윤문 | humanize-korean (epoko77-ai/im-not-ai) | 사람용 한국어 문서 다듬기(`/humanize-korean`) | 총괄 | 6.8k (0.9k) | 2026-11-28 | 전역 | 훅 없음, 표준 라이브러리만. 에이전트 9개 중 5개는 그 저장소 개발용 |
+| 한국어 윤문 | humanize-korean (epoko77-ai/im-not-ai) | "대상: 사람" 문서만 다듬기(`/humanize-korean`, 보수 강도). AI 지시문·공용 문서·주석에는 쓰지 않음 | 총괄 | 6.8k (0.9k) | 2026-11-28 | 전역 | 훅 없음, 표준 라이브러리만. 에이전트 9개 중 5개는 그 저장소 개발용 |
 
 ### 후보
 | 분류 | 도구 | 쓰는 때 | 담당 | 별 (월평균) | 조사일 | 설치 | 주의 |
