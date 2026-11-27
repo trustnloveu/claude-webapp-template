@@ -24,7 +24,15 @@
       "Bash(git push -f:*)",
       "Bash(git push origin main:*)",
       "Skill(speckit-implement)",
-      "Skill(speckit-converge)"
+      "Skill(speckit-converge)",
+      "Edit(./.specify/scripts/**)",
+      "Write(./.specify/scripts/**)",
+      "Edit(./.specify/templates/**)",
+      "Write(./.specify/templates/**)",
+      "Edit(./.claude/skills/speckit-*/**)",
+      "Write(./.claude/skills/speckit-*/**)",
+      "Edit(./.claude/skills/ui-ux-pro-max/**)",
+      "Write(./.claude/skills/ui-ux-pro-max/**)"
     ]
   },
   "hooks": {

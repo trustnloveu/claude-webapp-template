@@ -3,7 +3,7 @@
 > 대상: 공용
 
 현재 단계: 0. 환경
-다음 할 일: SETUP.md 1~5단계 완료(2026-11-27, 3단계는 Trail-code만 보류, 4·5단계는 PR chore/003-mcp-check 병합 대기). 다음은 템플릿 고도화·최적화(0단계 범위: 저장소·CLAUDE.md·훅, 별도 세션에서 브랜치·PR). 고도화가 끝나면 사람이 "0단계 완료"를 승인하고 1단계(기획: 아이디어·요구사항 원문)로 넘어간다. DB MCP는 백엔드 작업 시작 때, Sentry MCP는 배포 후 추가. Trail-code는 실제 프로젝트 복사본에 코드 뼈대가 생긴 뒤(3단계 구현 준비 이후) `trail init --dry-run`부터. 템플릿 고도화는 별도 세션에서 브랜치·PR로 진행
+다음 할 일: SETUP.md 1~5단계 완료(2026-11-27, 3단계는 Trail-code만 보류). 템플릿 고도화 1차(참조 리포트 기반 작업 흐름 최적화 R1~R6)는 PR chore/004-workflow-tuning 병합 대기. 다음은 고도화 2차(chore/005): 복사본용 PIPELINE 초기화, SETUP.md 명령 갱신, 사람용 안내서 에이전트 수 6↔9, superpowers 보류 확정(Figma 좌석은 2단계 전 확인). 고도화가 끝나면 사람이 "0단계 완료"를 승인하고 1단계(기획: 아이디어·요구사항 원문)로 넘어간다. DB MCP는 백엔드 작업 시작 때, Sentry MCP는 배포 후 추가. Trail-code는 실제 프로젝트 복사본에 코드 뼈대가 생긴 뒤(3단계 구현 준비 이후) `trail init --dry-run`부터. 템플릿 고도화는 별도 세션에서 브랜치·PR로 진행
 
 ## 사람 확인 대기
 Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람이 승인하면 Claude가 해당 항목을 반영하고 이 목록에서 지웁니다.
@@ -17,6 +17,9 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | Homebrew 경고: 신뢰하지 않은 탭 `adoptopenjdk/openjdk`가 무시되고 있음. `brew untap adoptopenjdk/openjdk`로 지울지 결정 필요(사람 PC 설정) | 기타 | `brew install uv` 출력 |
 | 2026-11-27 | 0단계 완료 승인(템플릿 고도화 후): SETUP.md 1~5단계 확인 끝(Trail-code 보류, DB·Sentry MCP는 나중). 한 번 승인했으나 고도화를 0단계 안에서 하기로 하고 사람 지시로 되돌림. 고도화가 끝나면 다시 승인받아 "단계"의 0을 체크하고 "현재 단계"를 1. 기획으로 바꾼다 | 단계 완료 | 이 파일 "확인 기록" 2026-11-27 4·5단계 줄 |
 | 2026-11-27 | 템플릿 고도화 항목 제안: 이 PIPELINE에 템플릿 자체의 결정 로그·확인 기록·0단계 상태가 쌓여 있어, 실제 프로젝트 복사본에 그대로 넘어간다. 복사본을 만들 때 PIPELINE을 초기 상태로 돌리는 방법(예: 빈 PIPELINE 템플릿 파일, 템플릿 기록은 별도 문서로 분리)을 정할지 | 결정 | 이 파일, docs/guide/SETUP.md 2단계 |
+| 2026-11-27 | 에이전트 머리말 `effort:`가 실제로 적용되는지 확인: Claude Code Agent 도구 설명(에이전트 정의 frontmatter에서 effort를 읽음)을 근거로 넣었고, CLI로는 확인 방법을 찾지 못함(추정). 병합 후 새 세션에서 확인, 안 되면 값을 빼거나 /plan-work 지정 방식만 쓴다 | 기타 | .claude/agents/*.md |
+| 2026-11-27 | `packages/shared` 직접 수정 금지를 settings.json deny로 강제할지: 생성 파일 위치가 3단계에서 정해지므로 이번엔 넣지 않음(README.md는 사람이 채울 칸이 있어 폴더 전체 deny는 부적합). 3단계에서 생성 폴더가 정해지면 추가 제안 | 결정 | CLAUDE.md "구조", .claude/settings.json |
+| 2026-11-27 | 07~09 에이전트(Agency Agents 원문 234~567줄) 축약 여부: 긴 지시문이 판단을 방해할 수 있다는 참조 리포트 의견. 호출될 때만 읽히고 외부 원문이라 보류 후보 | 결정 | .claude/agents/security-auditor.md, a11y-auditor.md, appsec-engineer.md |
 | 2026-11-27 | Figma 좌석이 "View"(starter 팀): 읽기는 되지만 Figma 파일 편집·MCP 쓰기 도구는 제한될 수 있음(추정). 2단계 시안을 Figma에서 직접 만들려면 편집 가능 좌석이 필요한지 확인 | 기타 | `mcp__figma__whoami` 결과 |
 
 종류: 기획 승인 / 디자인 승인 / 계획 승인 / 결과 승인 / 단계 완료 / 결정(ADR 채택, MVP 범위, 스택, 디자인) / PR 병합 / 배포 / 비용 발생 / 기타
@@ -55,6 +58,7 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | uv를 brew로 설치(PC 전역). Spec Kit v1.4.5를 템플릿에 설치하고 기획용 스킬(specify·clarify·checklist)만 쓴다. plan·tasks·analyze·constitution은 사람 지시 때만, implement·converge는 settings.json에서 차단 | 프로젝트 오너 | CLAUDE.md "구조"·"도구 사용", .claude/settings.json |
 | 2026-11-27 | Trail-code 보류: 전역 훅 5개, 에이전트가 결정을 "학습"으로 자동 저장(결정 로그와 이중 기록), 템플릿에 코드 없음. 실제 프로젝트에 코드가 생긴 뒤 dry-run 확인 후 재검토 | 프로젝트 오너 | 이 PIPELINE "다음 할 일" |
 | 2026-11-27 | UI UX Pro Max v2.15.0을 프로젝트 범위에 설치. `design-system/` 폴더를 만들지 않고, 스타일·색·글꼴 결정은 designer만, frontend-dev는 구현 점검에만 사용 | 프로젝트 오너 | CLAUDE.md "도구 사용" |
+| 2026-11-27 | 참조 리포트("클로드 코드 작업 프로세스 향상 가이드", 보리스 체르니 영상 요약) 기반 반영안 6개 적용 승인: R1 에이전트별 effort 기본값(planner·designer·qa·reviewer·security-auditor·appsec-engineer high, frontend-dev·backend-dev·a11y-auditor medium)과 /plan-work effort 칸, R2 외부 도구 관리 파일 Edit·Write deny(.specify/scripts·templates, speckit-*·ui-ux-pro-max 스킬), R3 CLAUDE.md "구조"·검증 목록 중복 정리(156→146줄), R4 총괄이 "수정 필요" 지적 근거 확인 후 재지시, R5 /refine 완료 조건을 판정 가능한 검사로·재량 칸, R6 세션 끝 스킬화 제안 | 프로젝트 오너 | CLAUDE.md, .claude/agents/, .claude/commands/, .claude/settings.json |
 | 2026-11-27 | Agency Agents 3개를 읽기 전용 에이전트로 추가: security-auditor(07), appsec-engineer(08), a11y-auditor(09). 원문 앞에 프로젝트 규칙 머리말, 역할 표·/plan-work 갱신, MIT 고지 | 프로젝트 오너 | .claude/agents/, CLAUDE.md, .claude/commands/plan-work.md, THIRD_PARTY_NOTICES.md |
 
 ## 확인 기록
@@ -73,5 +77,6 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | Trail-code 0.30.5 설치 영향(README·소스 확인, 미설치) | 전역 `~/.claude/settings.json`에 훅 5개(SessionStart, UserPromptSubmit, PreToolUse Bash, PostToolUse, Stop)와 상태줄, 프로젝트 `.mcp.json`·`.claude/skills/trail/`·`.trail/`. npm postinstall이 익명 설치 통계 전송(`DO_NOT_TRACK=1`로 차단). `trail init`은 과거 세션을 Claude Sonnet으로 읽고(사용량 소모) 최근 병합 PR 50개 리뷰를 읽음. Bash 훅은 오류 시 통과(fail-open)라 block-dangerous.sh와 직접 충돌은 없어 보임(추정) |
 | 2026-11-27 | 새 에이전트 07~09가 Agent 목록에 뜨는지 | 확인됨. 새 세션 Agent 목록에 security-auditor, appsec-engineer, a11y-auditor가 뜸. 스킬 목록에도 `speckit-*` 9개와 `ui-ux-pro-max`가 뜸 |
 | 2026-11-27 | SETUP 4단계: MCP 연결 | Figma: `.mcp.json`의 HTTP `https://mcp.figma.com/mcp`(프로젝트 범위)로 연결, `whoami`로 인증 확인(파일 작업 없음). Playwright: `npx @playwright/mcp@latest`(0.0.86)로 연결, 설치된 Google Chrome을 써서 브라우저 추가 설치 불필요(about:blank로 확인). 실행 시 저장소에 `.playwright-mcp/`가 생겨 .gitignore에 추가. 터미널 CLI(`claude mcp list`)에서는 두 서버가 "승인 대기"로 나옴 → CLI로 쓸 때 처음 한 번 승인 필요. 켜 둔 MCP 5개: 프로젝트 2(playwright, figma) + claude.ai 커넥터 2(Claude Docs, Notion) + 앱 기본 1(scheduled-tasks), 전역 사용자 범위 0 → 기준(5~6) 안. DB·Sentry MCP는 추가 안 함 |
+| 2026-11-27 | 템플릿 고도화 1차(R1~R6) 검증 | settings.json JSON 문법 통과, 훅 테스트 46/46 통과, `.specify/templates`·`.claude/skills/ui-ux-pro-max` Edit가 "denied by your permission settings"로 차단됨(이 세션). speckit-specify가 `.specify/feature.json`을 Write로 쓰므로 `.specify/` 전체가 아니라 scripts·templates만 막음 |
 | 2026-11-27 | SETUP 5단계: 동작 확인 | 훅: 존재하지 않는 경로로 `.env` 읽기를 시도하자 "차단됨: .env 파일 접근"으로 막힘. gitleaks: 테스트 브랜치에서 무작위 가짜 GitHub 토큰을 커밋 시도 → `github-pat` 규칙으로 차단, 커밋 생기지 않음, 파일·테스트 브랜치 삭제. PIPELINE 요약: 새 세션에서 "현재 단계: 0. 환경"으로 요약함 |
 

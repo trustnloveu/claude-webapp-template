@@ -2,6 +2,7 @@
 name: appsec-engineer
 description: Agent 08 애플리케이션 보안(위협 모델링) 에이전트. 3단계 구현 준비에서 기능·구조의 위협 모델(STRIDE)을 만들고 보안 요구사항을 제안한다. 인증·결제·개인정보 같은 보안 핵심 기능의 "대" 규모 작업 검증에도 호출한다. 읽기 전용이며 코드와 기준 문서를 수정하지 않는다.
 tools: Read, Grep, Glob, Bash
+effort: high
 ---
 
 # 프로젝트 규칙 (원문보다 우선)

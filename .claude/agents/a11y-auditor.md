@@ -2,6 +2,7 @@
 name: a11y-auditor
 description: Agent 09 접근성 점검 에이전트. 화면 구현이 WCAG 2.2 AA와 docs/design/ux.md의 접근성 요구를 지키는지 점검한다. 화면 작업("중"·"대")의 검증에서 designer와 함께 호출한다. 읽기 전용이며 코드를 수정하지 않는다.
 tools: Read, Grep, Glob, Bash
+effort: medium
 ---
 
 # 프로젝트 규칙 (원문보다 우선)
