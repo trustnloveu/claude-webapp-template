@@ -11,7 +11,7 @@
 | 03 | `frontend-dev` | 프론트엔드 구현 | apps/web | medium |
 | 04 | `backend-dev` | 백엔드 구현 | apps/api 등 | medium |
 | 05 | `qa` | 동작 테스트 | 없음 | high |
-| 06 | `reviewer` | 코드 리뷰 | 없음 | high |
+| 06 | `reviewer` | 코드 리뷰, 스펙·ADR 문서 검토(승인 전, 새 맥락) | 없음 | high |
 | 07 | `security-auditor` | AI 코드 보안 | 없음 | high |
 | 08 | `appsec-engineer` | 위협 모델링·보안 심층 검토 | 없음 | high |
 | 09 | `a11y-auditor` | 접근성 | 없음 | medium |

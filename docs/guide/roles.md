@@ -43,7 +43,7 @@ flowchart TB
 | 구성원 | 주체 | 하는 일 | 기준 문서 (작성) | 보고 대상 |
 |---|---|---|---|---|
 | 프로젝트 오너 | 나 | 요구사항 제시, 질문에 답, 4개 승인, 결정, 시안 의견·결정(Stitch 탐색은 선택), 외부 채널 업로드, 병합·배포 | 전부 확정 | — |
-| 총괄 | 메인 세션 | 요청 접수·원문 기록, 단계 판정, 진입 조건 확인, 배정, 질문 중계, 결과 통합, 기술 설계 | `PIPELINE.md`, 요청서, `tech-stack.md`, `architecture.md`, ADR(제안) | 나 |
+| 총괄 | 메인 세션 | 요청 접수·원문 기록, 단계 판정, 진입 조건 확인, 배정, 질문 중계, 결과 통합, 기술 설계 | `PIPELINE.md`, 요청서, `tech-stack.md`, `architecture.md`, `tool-catalog.md`, ADR(제안) | 나 |
 | **01 기획 (리드)** | `planner` | 요구사항 **분석 → 구체화 → 정형화 → 고도화**, 구현 결과의 요구사항 충족 검토 | `planning/requirements.md`, `idea.md`, `specs/` | 총괄 |
 | **02 디자인 (UI/UX 리드)** | `designer` | **UX 설계(IA·화면 목록·화면 흐름) → UI 정형화(화면 상세·디자인 시스템) → HTML 시안 → 고도화**, 시안·구현 검증 | `design/ux.md`, `design/README.md`, `design/mockups/` | 총괄 |
 | 03 프론트엔드 | `frontend-dev` | 승인된 기획·디자인대로 화면 구현, API 연동 | `apps/web` | 총괄 |

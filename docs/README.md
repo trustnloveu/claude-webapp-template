@@ -40,7 +40,8 @@ docs/
 │  ├─ tech-stack.md          스택 · 도구 · 폴더 구조 · 패턴 · 코드 크기 기준 · 라이브러리 · 보안 기준 (단일 기준)
 │  ├─ architecture.md        시스템 구성 · 인증 · 외부 연동 · 환경
 │  ├─ database.md            ERD · 테이블 · 인덱스
-│  └─ deploy.md              환경 · 환경 변수 이름 · 롤백 · 백업·복구 · 모니터링
+│  ├─ deploy.md              환경 · 환경 변수 이름 · 롤백 · 백업·복구 · 모니터링
+│  └─ tool-catalog.md        스킬·MCP·플러그인 목록 · 후보 · 교체 기준 (/tool-review로 재검토)
 │
 ├─ decisions/             결정 기록(ADR) — 왜 그렇게 정했나          ADR-000-template.md
 ├─ requests/              기능 단위 요청서                          README=양식
@@ -72,6 +73,7 @@ docs/
 | 테이블 구조 | [engineering/database.md](engineering/database.md), 마이그레이션 파일 |
 | 왜 이 기술(설계)을 골랐나 | [decisions/](decisions/) |
 | 배포는 어떻게, 환경 변수는 무엇이 필요한가 | [engineering/deploy.md](engineering/deploy.md), `.env.example` |
+| 어떤 스킬·MCP를 쓰고, 어떤 후보가 있나 | [engineering/tool-catalog.md](engineering/tool-catalog.md) |
 | 누가 이 문서를 고칠 수 있나 | [../CLAUDE.md](../CLAUDE.md)의 "문서 담당" |
 | 저장소에 넣은 외부 파일의 출처·라이선스는 | [../THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) |
 

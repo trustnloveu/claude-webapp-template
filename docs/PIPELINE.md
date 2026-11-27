@@ -16,7 +16,6 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 날짜 | 항목 | 종류 | 근거·위치 |
 |---|---|---|---|
 | 2026-11-28 | `chore/017-video-methods` PR 병합 (영상 3편 반영 A~F) | PR 병합 | docs/requests/2026-11-28-video-methods.md |
-| 2026-11-28 | 한국어 Humanizer(im-not-ai) 설치 여부. 제안: 보류(전역 설치, Humanizer와 역할 겹침) | 결정 | docs/requests/2026-11-28-video-methods.md 비교표 |
 
 종류: 기획 승인 / 디자인 승인 / 계획 승인 / 결과 승인 / 단계 완료 / 결정(ADR 채택, MVP 범위, 스택, 디자인) / PR 병합 / 배포 / 비용 발생 / 기타
 
@@ -48,6 +47,8 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | 시안 흐름: designer가 `docs/design/mockups/`에 HTML 시안(+ `tokens.css`)을 만들고 사람과 수정·재생성하며 결정. 결정되면 Playwright로 PNG로 바꿔 외부 채널에 업로드(공유·보관용). 다음 수정은 저장소 HTML에서 시작하고, 외부 채널은 사람이 직접 고쳤을 때만 다시 읽는다. 탐색용 시안 도구는 Stitch(기본·무료, 사람이 웹에서 사용), Figma는 선택(유료). 업로드 흐름은 복사본 2단계 첫 시안 때 시험. 반영은 `chore/012` | 프로젝트 오너 | 이 대화 |
 | 2026-11-27 | Agency Agents 3개를 읽기 전용 에이전트로 추가: security-auditor(07), appsec-engineer(08), a11y-auditor(09). 원문 앞에 프로젝트 규칙 머리말, 역할 표·/plan-work 갱신, MIT 고지 | 프로젝트 오너 | .claude/agents/, CLAUDE.md, .claude/commands/plan-work.md, THIRD_PARTY_NOTICES.md |
 | 2026-11-28 | 유튜브 영상 3편 반영안 A~F 적용 승인: A 제품 원칙(판단 기준) 칸과 CLAUDE.md 기준 1줄, B /refine 질문을 라운드 방식(Grill Me)으로 교체, C reviewer 문서 검토 모드(새 맥락 검토, Elephant-Goldfish)·문서 어긋남 기준을 기획 승인·ADR 채택 전에, D tech-stack.md 구현 순서(Ponytail), E Stop 훅으로 코드 변경 시 테스트 점검, F SETUP.md에 Claude Code Setup 안내. 플러그인은 하나도 설치하지 않고 방법만 옮김. Claude-Mem·FreeLLMAPI·21st.dev MCP·Archify·Marketing Skills·HyperFrames 제외 | 프로젝트 오너 | docs/requests/2026-11-28-video-methods.md |
+| 2026-11-28 | 전역 Humanizer를 한국어판으로 교체: blader/humanizer 제거, epoko77-ai/im-not-ai(`humanize-korean` 2.4.8) 설치. 문서·주석을 영어로 쓸 일이 없어 인지도(6.8k, 영어판 74k)보다 언어 적합성 우선 | 프로젝트 오너 | docs/guide/SETUP.md 1단계, docs/engineering/tool-catalog.md |
+| 2026-11-28 | 도구 재검토(GitHub 별·월평균 별·최근 활동) 반영 G·H·I 승인: G 도구 목록 `docs/engineering/tool-catalog.md` 신설(사용 중·후보·방법만 차용·보류·제외, 에이전트는 후보를 "도구 제안"으로 보고), H `/tool-review` 명령과 교체 기준(대안이 별·월평균 2배 이상, 최근 3개월 활동, 허용 라이선스, 위험이 크지 않음, 겹침 해결 가능), I qa 오류 분석 절차(재현→줄이기→가설→확인→위치). 재검토 결과 지금 구성(Spec Kit, UI UX Pro Max, Agency Agents, Playwright MCP, diagram-design)은 유지, Archify·Chrome DevTools MCP·공식 플러그인 등은 후보, superpowers·ECC는 제외 유지 | 프로젝트 오너 | docs/engineering/tool-catalog.md, .claude/commands/tool-review.md, .claude/agents/qa.md, CLAUDE.md |
 
 ## 확인 기록
 사실 확인 결과를 남깁니다. 결정이 아닙니다.
