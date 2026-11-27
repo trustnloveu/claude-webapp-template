@@ -131,7 +131,8 @@ trail init --agents claude --dry-run
 
 `.mcp.json`에 Figma와 Playwright가 등록되어 있습니다.
 
-- [ ] Figma: HTTP 방식(`https://mcp.figma.com/mcp`). 처음 사용할 때 Figma 계정으로 인증합니다. 좌석이 "View"면 파일 편집이 제한될 수 있으니 2단계(디자인) 전에 확인합니다
+- [ ] Figma (선택): HTTP 방식(`https://mcp.figma.com/mcp`). 처음 사용할 때 Figma 계정으로 인증합니다. 무료(Starter) 플랜이나 View·Collab 좌석은 MCP 읽기 도구가 월 20회로 제한되고, View 좌석에서 쓰기가 되는지는 확인되지 않았습니다. 시안을 Figma에서 다루려면 Professional 이상의 Full 또는 Dev 좌석을 검토합니다(비용 발생, 사람 결정)
+- [ ] 시안은 기본적으로 Figma 없이 진행합니다. designer가 `docs/design/mockups/`에 HTML 시안을 만들고, 탐색이 필요하면 Google Stitch(stitch.withgoogle.com, 무료, MCP 연결 없이 웹에서 사용)를 씁니다. Stitch 무료 범위는 월 수백 회(공식 수치 미확인)이고 유료화될 수 있습니다. 흐름은 `docs/design/mockups/README.md`
 - [ ] Playwright: `npx @playwright/mcp@latest`. 설치된 Google Chrome을 쓰므로 브라우저 추가 설치가 필요 없습니다. 실행하면 `.playwright-mcp/` 폴더가 생깁니다(.gitignore에 포함)
 - [ ] 데스크탑 앱과 별개로, 터미널 CLI(`claude mcp list`)에서는 두 서버가 "승인 대기"로 나옵니다. CLI로 쓸 때 처음 한 번 승인합니다
 - [ ] 백엔드 작업을 시작할 때 DB MCP(개발 DB 전용), 배포 후 Sentry MCP 추가

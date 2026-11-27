@@ -10,10 +10,10 @@
 
 | 구성원 | 맡는 주체 | 하는 일 | 수정 권한 |
 |---|---|---|---|
-| 프로젝트 오너 | 사람 | 요구사항 제시, 4개 승인(기획·디자인·계획·결과), 결정, 일정, Figma 시안, 병합·배포 | 전부 |
+| 프로젝트 오너 | 사람 | 요구사항 제시, 4개 승인(기획·디자인·계획·결과), 결정, 일정, 시안 결정(Stitch 탐색은 선택), 외부 채널 업로드(직접 하거나 Claude에 승인), 병합·배포 | 전부 |
 | 총괄 (PM/오케스트레이터) | 메인 세션 (/refine, /plan-work) | 요청 접수·단계 판정, 배정, 질문 중계, 진입 조건 확인, 결과 통합, 기술 설계 | docs/PIPELINE.md, docs/requests/, docs/engineering/tech-stack.md, docs/engineering/architecture.md, ADR(제안), docs/engineering/deploy.md |
 | Agent 01 기획 (리드) | planner | 요구사항 분석·구체화·정형화·고도화, 요구사항 충족 검토 | docs/planning/, specs/ |
-| Agent 02 디자인 (UI/UX 리드) | designer | IA·화면 목록·화면 흐름·화면 상세 설계, 디자인 시스템, 고도화, 시안·구현 검증 | docs/design/, 토큰 파일 |
+| Agent 02 디자인 (UI/UX 리드) | designer | IA·화면 목록·화면 흐름·화면 상세 설계, 디자인 시스템, HTML 시안 작성·수정, 고도화, 시안·구현 검증 | docs/design/(시안 docs/design/mockups/ 포함), 토큰 파일 |
 | Agent 03 프론트엔드 | frontend-dev | 승인된 기획·디자인대로 화면 구현, API 연동 | apps/web |
 | Agent 04 백엔드 | backend-dev | 승인된 기획대로 API, DB, 서버 로직 구현 | apps/api, OpenAPI, docs/engineering/database.md, 마이그레이션, packages/shared |
 | Agent 05 QA | qa | 인수 기준 동작 테스트, 오류 분석 | 없음 |
@@ -35,7 +35,7 @@
 | docs/planning/requirements.md (요구사항 원문·분석·질문·추적·고도화) | 원문은 총괄, 나머지는 planner | 사람 |
 | docs/planning/idea.md, docs/planning/spec-guide.md, specs/ (Spec Kit 스펙: 기능 명세, 사용자 시나리오, 인수 기준) | planner | 사람 (기획 승인) |
 | docs/design/ux.md (IA, 화면 목록, 화면 흐름, 화면 상세) | designer | 사람 (디자인 승인) |
-| docs/design/README.md (컨셉, 화면별 디자인 상태, 토큰, 컴포넌트 상태), Figma | designer (Figma 시안은 사람) | 사람 (디자인 승인) |
+| docs/design/README.md (컨셉, 화면별 디자인 상태, 토큰, 컴포넌트 상태), docs/design/mockups/ (HTML 시안 원본) | designer (Stitch 탐색 결과와 외부 채널 업로드는 사람) | 사람 (디자인 승인) |
 | docs/engineering/tech-stack.md, docs/engineering/architecture.md, docs/decisions/ (ADR) | 총괄 (ADR은 제안) | 사람 (ADR 채택) |
 | OpenAPI, docs/engineering/database.md, 마이그레이션 | backend-dev | 총괄 확인, 구조 변경은 사람 |
 | docs/reports/ | qa, reviewer, security-auditor, appsec-engineer, a11y-auditor (보고를 총괄이 저장) | — |
@@ -47,7 +47,7 @@
 | 순서 | 단계 | 주 담당 | 진입 조건 (총괄이 확인) | 끝 (사람 승인) |
 |---|---|---|---|---|
 | 1 | 기획: 분석 → 질문 → 정형화 → 고도화 | planner (총괄이 질문 중계) | 요구사항 원문이 requirements.md에 있음 | **기획 승인**: 스펙·인수 기준·MoSCoW 확정 |
-| 2 | UI/UX: UX 설계 → UI 정형화 → 시안(사람·Figma) → 고도화 | designer | 기획 승인 | **디자인 승인**: 화면 상세 확정, 화면별 상태 "승인" |
+| 2 | UI/UX: UX 설계 → UI 정형화 → HTML 시안(designer 작성, 사람 결정) → 고도화 | designer | 기획 승인 | **디자인 승인**: 화면 상세 확정, 화면별 상태 "승인" |
 | 3 | 구현 준비: 기술 설계, 위협 모델, API 계약, DB | 총괄(기술), appsec-engineer(위협 모델), backend-dev(API·DB) | 기획 승인, 화면이 있으면 디자인 승인 | 스택·구조는 ADR 채택 |
 | 4 | 구현 계획 | 총괄 (/plan-work) | 1~3 완료, 구현에 필요한 기준 문서가 모두 있음 | **계획 승인** |
 | 5 | 구현 | backend-dev → frontend-dev | 계획 승인 | — |
@@ -65,7 +65,7 @@
 ## 작업 진행 규칙
 1. 요청이 오면 총괄이 원문을 docs/planning/requirements.md(기능 단위면 docs/requests/)에 그대로 남기고, 요청이 어느 단계부터 필요한지 판정해 알린다.
 2. 기획이 필요하면 planner에 분석을 맡기고, planner의 질문을 모아 사람에게 묻고 답을 전달한다. 정형화와 고도화까지 마치면 기획 승인을 받는다.
-3. 화면이 관련되면 designer에 UX 설계와 UI 정형화를 맡긴다. 시안은 사람이 Figma로 만들고 designer가 검증한다. 디자인 승인을 받는다.
+3. 화면이 관련되면 designer에 UX 설계와 UI 정형화를 맡긴다. 시안은 designer가 docs/design/mockups/에 HTML로 만들고 사람과 수정을 반복해 사람이 결정한다(흐름은 docs/design/mockups/README.md). 탐색용 시안 도구는 Stitch(기본·무료), Figma는 선택(유료). 디자인 승인을 받는다.
 4. 구현 준비(기술 기준, API 계약, DB)가 안 되어 있으면 먼저 한다.
 5. /plan-work 형식의 계획서(규모, 작업 목록, 담당, 검증 계획)를 보여 주고 계획 승인을 받는다. 규모 "소"는 사람이 원하면 총괄이 직접 한다. 이때도 계획은 보여 준다.
 6. 작업마다 담당 에이전트에 작업 지시서(작업 ID, 범위, 제외, 완료 조건, 참고 문서)를 건넨다. 선행 작업 순서를 지킨다.

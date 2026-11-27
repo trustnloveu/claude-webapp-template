@@ -20,7 +20,7 @@ $ARGUMENTS
    | 확인 항목 | 충족 기준 | 안 되면 |
    |---|---|---|
    | 기획 | 관련 기능이 스펙에 있고, 인수 기준이 있고, MoSCoW에 `(제안)`이 없음 | 1. 기획부터 (planner: 분석 → 질문 → 정형화 → 고도화) |
-   | 디자인 (화면이 있을 때) | docs/design/ux.md에 화면 상세가 있고, 화면별 디자인 상태가 "승인" | 2. UI/UX부터 (designer: UX 설계 → UI 정형화 → 사람 시안 → 검증) |
+   | 디자인 (화면이 있을 때) | docs/design/ux.md에 화면 상세가 있고, 화면별 디자인 상태가 "승인" | 2. UI/UX부터 (designer: UX 설계 → UI 정형화 → HTML 시안(사람 결정) → 검증) |
    | 기술 기준 | docs/engineering/tech-stack.md에 필요한 스택·구조·라이브러리가 있음 | 3. 구현 준비 (총괄: 기술 설계·ADR 제안) |
    | API·DB | 필요한 API가 OpenAPI에, 테이블이 docs/engineering/database.md에 있음 | 구현 작업 앞에 backend-dev의 계약 작업을 둔다 |
 
@@ -28,7 +28,7 @@ $ARGUMENTS
 
 3. **작업 분해와 배정**: 판정된 단계부터 작업을 나눈다. 작업 하나는 에이전트 하나가 한 번에 끝낼 수 있는 크기다.
    - `planner`(01 기획 리드): 요구사항 분석·정형화·고도화, 요구사항 충족 검토
-   - `designer`(02 UI/UX 리드): UX 설계, UI 정형화, 고도화, 시안·구현 검증
+   - `designer`(02 UI/UX 리드): UX 설계, UI 정형화, HTML 시안 작성·수정, 고도화, 시안·구현 검증
    - `frontend-dev`(03), `backend-dev`(04): 승인된 기획·디자인의 구현 (API 계약이 바뀌면 backend-dev가 먼저)
    - `qa`(05), `reviewer`(06): 검증 전용
    - `security-auditor`(07): 인증·권한·시크릿·DB 정책·LLM 호출이 바뀌는 작업의 보안 점검 (검증 전용)

@@ -22,7 +22,7 @@ Claude는 아래 항목을 제안만 하고, 확정은 내가 합니다.
 | 단계 완료, 다음 단계로 이동 | `docs/PIPELINE.md` 단계 체크 |
 | MVP 범위(MoSCoW 최종) | 스펙 |
 | 기술 스택, 주요 구조, 라이브러리 추가 | ADR "채택", `docs/engineering/tech-stack.md` |
-| 디자인 승인 | Figma, `docs/design/README.md` 화면별 디자인 상태 |
+| 디자인 승인 | 브라우저로 연 HTML 시안(`docs/design/mockups/`), `docs/design/README.md` 화면별 디자인 상태 |
 | PR 병합 | GitHub (앱이 승인 요청을 띄움) |
 | 배포, 릴리스 태그 | 배포처 (앱이 승인 요청을 띄움) |
 | 비용이 드는 서비스 가입, 시크릿 값 입력 | 각 서비스에서 직접 |

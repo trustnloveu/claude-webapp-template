@@ -15,12 +15,12 @@ effort: medium
 
 ## 시작 전
 - 루트 CLAUDE.md, apps/web/CLAUDE.md, docs/engineering/tech-stack.md를 읽는다. 언어·프레임워크·라이브러리·폴더 구조·패턴은 docs/engineering/tech-stack.md를 따른다.
-- 작업 지시서의 범위, 제외, 완료 조건, 참고 자료(기능 ID, Figma 프레임, OpenAPI)를 확인한다.
+- 작업 지시서의 범위, 제외, 완료 조건, 참고 자료(기능 ID, 결정된 시안 docs/design/mockups/ 또는 Figma 프레임, OpenAPI)를 확인한다.
 - 지시서가 모호하거나 범위 밖 수정이 필요하면 작업하지 말고, 질문을 정리해 메인 세션에 돌려준다.
 
 ## 작업
 - 지시서에 적힌 파일과 범위만 수정한다. 다른 에이전트의 담당 영역(apps/api 등)은 건드리지 않는다.
-- 화면은 docs/design/ux.md의 화면 상세(상태, 인터랙션, 반응형, 접근성)와 Figma 프레임대로 만든다. Figma MCP로 프레임을 읽고, 디자인 토큰만 쓴다. 디자인을 임의로 바꾸지 않는다.
+- 화면은 docs/design/ux.md의 화면 상세(상태, 인터랙션, 반응형, 접근성)와 결정된 시안대로 만든다. 시안은 docs/design/mockups/의 HTML(Figma를 쓰면 Figma MCP로 프레임)을 읽고, 시안 HTML을 그대로 복사하지 않고 tech-stack.md 구조로 새로 만든다. 디자인 토큰만 쓴다. 디자인을 임의로 바꾸지 않는다.
 - 인수 기준마다 테스트를 먼저 쓰고 구현한다. 테스트를 고치거나 건너뛰어 통과시키지 않는다.
 - 테스트를 먼저 실행해 실패를 확인한다. 실패 원인은 "아직 구현하지 않음"이어야 한다. 문법 오류나 설정 오류로 실패하면 그것부터 고치고 다시 확인한다.
 - docs/engineering/tech-stack.md의 코드 크기 기준과 보안 기준(토큰 보관 위치, 사용자 입력을 HTML로 넣지 않기 등)을 따른다.

@@ -2,7 +2,7 @@
 
 > 대상: 사람
 
-기능 하나마다 5-1~5-6을 반복합니다. 도구: Spec Kit(tasks), Superpowers TDD, Figma MCP, UI UX Pro Max, Playwright, `/code-review`
+기능 하나마다 5-1~5-6을 반복합니다. 도구: Spec Kit(tasks), 테스트 먼저(TDD, 에이전트 규칙), 결정된 HTML 시안(Figma를 쓰면 Figma MCP), UI UX Pro Max, Playwright, `/code-review`
 
 ## 역할로 진행하기 (권장)
 기능마다 기획 확인 → 디자인 확인 → 계획 → 구현 → 검증 순서로 진행합니다. [프로젝트 구성원](../roles.md)의 흐름을 따릅니다.
@@ -19,9 +19,10 @@
 | 검증 | 05 qa + 06 reviewer + 02 designer + 01 planner (+ 화면이면 09 a11y-auditor, 보안 변경이면 07 security-auditor, 보안 핵심 "대"면 08 appsec-engineer) | 메인 세션이 동시에 지시 | 원인이 기획·디자인이면 그 단계로 |
 | 마무리 | 사람 | **결과 승인** → PR → 병합 | — |
 
-## Figma → 코드 (원본 ⑲) — 5-5
+## 시안 → 코드 (원본 ⑲) — 5-5
 ```text
-Figma 프레임 [URL]을 Figma MCP로 읽어 apps/web에 구현해 줘.
+결정된 시안 docs/design/mockups/[화면 ID].html(Figma를 쓰면 프레임 [URL]을 Figma MCP로)을 읽어 apps/web에 구현해 줘.
+시안 HTML을 복사하지 말고 docs/engineering/tech-stack.md 구조로 새로 만들어.
 먼저 디자인과 현재 코드 구조를 분석해 구현 계획(새 컴포넌트, 재사용할 컴포넌트, 수정 파일)을 보여 주고 승인을 받아.
 디자인 토큰만 쓰고 여백·폰트·색·크기를 시안과 맞춰. 반응형과 접근성(키보드, 대비, 라벨)을 지켜.
 디자인을 임의로 바꾸지 말고, 구현이 어려운 부분은 먼저 말해.
@@ -51,7 +52,7 @@ OpenAPI의 [operationId]를 apps/api에 TDD로 구현해 줘.
 
 ## 디자인 검수 (원본 ㉔) — 5-6
 ```text
-Playwright로 [화면 ID]를 데스크톱·모바일 크기로 캡처하고 Figma 프레임과 비교해 줘.
+Playwright로 [화면 ID]를 데스크톱·모바일 크기로 캡처하고 결정된 시안(docs/design/mockups/exports/의 PNG, Figma를 쓰면 프레임)과 비교해 줘.
 레이아웃, 위치, 크기·여백, 색, 폰트, 버튼·입력창, 반응형, 인터랙션 순으로 차이를 표로 정리하고
 심각도(높음/중간/낮음)를 붙여. 수정은 내가 우선순위를 정한 뒤에 해.
 ```

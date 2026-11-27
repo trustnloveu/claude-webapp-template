@@ -22,7 +22,7 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 
 - [ ] 0. 환경 → 이 저장소, CLAUDE.md, 훅 (docs/guide/SETUP.md)
 - [ ] 1. 기획: 요구사항 분석 → 질문 → 정형화 → 고도화 → **기획 승인** — docs/planning/requirements.md, docs/planning/idea.md, specs/ (1-planning-requirements.md, 1-planning-spec.md)
-- [ ] 2. UI/UX: UX 설계 → UI 정형화 → Figma 시안 → 고도화 → **디자인 승인** — docs/design/ux.md, docs/design/README.md, Figma (2-uiux.md)
+- [ ] 2. UI/UX: UX 설계 → UI 정형화 → HTML 시안(사람 결정) → 고도화 → **디자인 승인** — docs/design/ux.md, docs/design/README.md, docs/design/mockups/ (2-uiux.md). 첫 시안 때 PNG 내보내기·외부 채널 업로드 흐름을 시험하고 결과를 확인 기록에 남김
 - [ ] 3. 구현 준비: 기술 스택·구조(ADR), 아키텍처, API 계약, DB, 뼈대 → 스테이징 URL — docs/engineering/tech-stack.md, docs/engineering/architecture.md, OpenAPI, docs/engineering/database.md (3-build-setup.md)
 - [ ] 4. 기능 구현 루프 (4-feature-loop.md)
 - [ ] 5. 출시 → 테스트·보안 보고서(docs/reports), 운영 URL, 모니터링, 릴리스 노트 (5-release.md)
