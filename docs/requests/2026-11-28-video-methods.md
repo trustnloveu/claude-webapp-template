@@ -72,4 +72,4 @@
 
 ## 결과
 - 2026-11-28 사람이 A~F 전부 적용 승인. 설치·삭제한 것 없음.
-- PR: <PR 링크>
+- PR: https://github.com/trustnloveu/claude-webapp-template/pull/16
