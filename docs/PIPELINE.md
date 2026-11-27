@@ -15,7 +15,6 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 
 | 날짜 | 항목 | 종류 | 근거·위치 |
 |---|---|---|---|
-| 2026-11-28 | PR #19 `chore/020-agent-tools` 병합(designer·frontend-dev·backend-dev `tools:`), 그다음 `chore/021-human-docs` 병합(README 재작성, 사람용 안내서 윤문, 윤문 범위 규칙). 021은 020 위에 만들어 020이 먼저 | PR 병합 | GitHub PR |
 | 2026-11-28 | 템플릿 자체 라이선스. 지금은 없음(README "라이선스"에 미정으로 적음). 공개 저장소라 남이 쓰게 하려면 MIT 등 지정이 필요 | 결정 | README.md, THIRD_PARTY_NOTICES.md |
 
 종류: 기획 승인 / 디자인 승인 / 계획 승인 / 결과 승인 / 단계 완료 / 결정(ADR 채택, MVP 범위, 스택, 디자인) / PR 병합 / 배포 / 비용 발생 / 기타
