@@ -23,6 +23,7 @@ docs/
 │                          ※ 기능별 스펙은 docs 밖 저장소 루트 specs/ (Spec Kit 기본 위치)
 │                          ※ Spec Kit 설정은 루트 .specify/, 스킬은 .claude/skills/speckit-* (Spec Kit이 관리)
 ├─ PIPELINE.md            진행 상태판: 현재 단계, 사람 확인 대기, 기능 표, 결정 로그
+│                          (템플릿 원본 저장소에서는 단계를 진행하지 않는 "템플릿 관리판")
 ├─ PIPELINE-template.md   복사본용 빈 상태판 (템플릿에서 새 프로젝트를 만들 때 PIPELINE.md를 덮어씀)
 │
 ├─ planning/              ① 기획 — 무엇을, 왜, 누구를 위해          담당: 01 기획
