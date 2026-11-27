@@ -16,7 +16,6 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 날짜 | 항목 | 종류 | 근거·위치 |
 |---|---|---|---|
 | 2026-11-27 | Homebrew 경고: 신뢰하지 않은 탭 `adoptopenjdk/openjdk`가 무시되고 있음. `brew untap adoptopenjdk/openjdk`로 지울지 결정 필요(사람 PC 설정) | 기타 | `brew install uv` 출력 |
-| 2026-11-27 | 에이전트 머리말 `effort:`가 실제로 적용되는지 확인: Claude Code Agent 도구 설명(에이전트 정의 frontmatter에서 effort를 읽음)을 근거로 넣었고, CLI로는 확인 방법을 찾지 못함(추정). 병합 후 새 세션에서 확인, 안 되면 값을 빼거나 /plan-work 지정 방식만 쓴다 | 기타 | .claude/agents/*.md |
 | 2026-11-27 | `packages/shared` 직접 수정 금지를 settings.json deny로 강제할지: 생성 파일 위치가 3단계에서 정해지므로 이번엔 넣지 않음(README.md는 사람이 채울 칸이 있어 폴더 전체 deny는 부적합). 3단계에서 생성 폴더가 정해지면 추가 제안 | 결정 | CLAUDE.md "구조", .claude/settings.json |
 | 2026-11-27 | 07~09 에이전트(Agency Agents 원문 234~567줄) 축약 여부: 긴 지시문이 판단을 방해할 수 있다는 참조 리포트 의견. 호출될 때만 읽히고 외부 원문이라 보류 후보 | 결정 | .claude/agents/security-auditor.md, a11y-auditor.md, appsec-engineer.md |
 | 2026-11-27 | Figma 좌석이 "View"(starter 팀): 읽기는 되지만 Figma 파일 편집·MCP 쓰기 도구는 제한될 수 있음(추정). 2단계 시안을 Figma에서 직접 만들려면 편집 가능 좌석이 필요한지 확인 | 기타 | `mcp__figma__whoami` 결과 |
@@ -64,4 +63,5 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | GitHub "Template repository" 설정 | 사람 승인 후 `gh repo edit --template`으로 켬. `gh repo view` 결과 isTemplate=true, 공개 유지 |
 | 2026-11-27 | 템플릿 고도화 1차(R1~R6) 검증 | settings.json JSON 문법 통과, 훅 테스트 46/46 통과, `.specify/templates`·`.claude/skills/ui-ux-pro-max` Edit가 "denied by your permission settings"로 차단됨(이 세션). speckit-specify가 `.specify/feature.json`을 Write로 쓰므로 `.specify/` 전체가 아니라 scripts·templates만 막음 |
 | 2026-11-27 | SETUP 5단계: 동작 확인 | 훅: 존재하지 않는 경로로 `.env` 읽기를 시도하자 "차단됨: .env 파일 접근"으로 막힘. gitleaks: 테스트 브랜치에서 무작위 가짜 GitHub 토큰을 커밋 시도 → `github-pat` 규칙으로 차단, 커밋 생기지 않음, 파일·테스트 브랜치 삭제. PIPELINE 요약: 새 세션에서 "현재 단계: 0. 환경"으로 요약함 |
+| 2026-11-27 | 에이전트 머리말 `effort:`가 적용되는지 | 적용됨. 문서: https://code.claude.com/docs/en/sub-agents "Frontmatter reference"에 `effort` 필드(low·medium·high·xhigh·max, 세션 effort보다 우선, `CLAUDE_CODE_EFFORT_LEVEL` 환경변수가 있으면 그 값이 우선, 호출 때 effort를 지정하면 그 값이 우선). 관찰(CLI 2.1.332): effort 없이 reviewer를 읽기 작업으로 호출 → 서브에이전트 기록(`~/.claude/projects/<프로젝트>/<세션>/subagents/*.jsonl`)에 `"effort":"high"`, 같은 방식으로 부른 내장 web-fetch는 `"medium"`. 이 PC에는 effort 환경변수 없음 |
 
