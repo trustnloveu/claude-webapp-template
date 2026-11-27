@@ -31,6 +31,9 @@ $ARGUMENTS
    - `designer`(02 UI/UX 리드): UX 설계, UI 정형화, 고도화, 시안·구현 검증
    - `frontend-dev`(03), `backend-dev`(04): 승인된 기획·디자인의 구현 (API 계약이 바뀌면 backend-dev가 먼저)
    - `qa`(05), `reviewer`(06): 검증 전용
+   - `security-auditor`(07): 인증·권한·시크릿·DB 정책·LLM 호출이 바뀌는 작업의 보안 점검 (검증 전용)
+   - `appsec-engineer`(08): 구현 준비(3단계)의 위협 모델링·보안 요구사항 제안, 보안 핵심 기능 "대" 규모 검증 (읽기 전용)
+   - `a11y-auditor`(09): 화면 구현의 접근성 점검 (검증 전용)
    - `메인 세션`(총괄): 요구사항 원문 기록, 질문 중계, 기술 설계, 문서 소규모 수정
    - 작업의 수정 범위가 CLAUDE.md "문서 담당"과 맞는지 확인하고, 여러 영역에 걸치면 나눈다.
 
@@ -40,9 +43,10 @@ $ARGUMENTS
    | 기획 | 요구사항 분석, 스펙 작성 | planner (질문은 총괄이 중계) | 사람 (기획 승인) |
    | 디자인 | UX 설계, 화면 상세, 디자인 시스템 | designer | planner(기획 대응 확인), 사람 (디자인 승인) |
    | 소 | 문서·설정 1~2개 파일, 문구 수정 | 메인 세션 | 없음 또는 reviewer |
-   | 중 | 한쪽 영역 구현(API만, 화면만) | frontend-dev 또는 backend-dev | qa + reviewer (+ 화면이면 designer) |
-   | 대 | 화면+API 기능 구현 | backend-dev → frontend-dev | qa + reviewer + designer + planner |
-   | 기술 설계 | 스택 비교, 구조·패턴 정의 | 메인 세션 | reviewer(일관성), 사람 (ADR 채택) |
+   | 중 | 한쪽 영역 구현(API만, 화면만) | frontend-dev 또는 backend-dev | qa + reviewer (+ 화면이면 designer + a11y-auditor) |
+   | 대 | 화면+API 기능 구현 | backend-dev → frontend-dev | qa + reviewer + designer + a11y-auditor + planner |
+   | 기술 설계 | 스택 비교, 구조·패턴 정의 | 메인 세션 (+ 위협 모델은 appsec-engineer) | reviewer(일관성), 사람 (ADR 채택) |
+   - 인증·권한·시크릿·DB 정책·LLM 호출이 바뀌면 규모와 관계없이 security-auditor를 검증에 더한다. 인증·결제·개인정보 같은 보안 핵심 기능의 "대" 규모 작업이면 appsec-engineer도 더한다.
    사람이 다르게 판단하면 그 판단을 따른다.
 
 4. **계획서 작성**: 아래 형식으로 보여 준다.

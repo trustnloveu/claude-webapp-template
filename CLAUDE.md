@@ -18,6 +18,9 @@
 | Agent 04 백엔드 | backend-dev | 승인된 기획대로 API, DB, 서버 로직 구현 | apps/api, OpenAPI, docs/engineering/database.md, 마이그레이션, packages/shared |
 | Agent 05 QA | qa | 인수 기준 동작 테스트, 오류 분석 | 없음 |
 | Agent 06 코드 리뷰 | reviewer | 품질·보안·성능·기술 기준 리뷰 | 없음 |
+| Agent 07 AI 코드 보안 | security-auditor | 시크릿 노출, DB 접근 정책, 프롬프트 인젝션 점검 | 없음 |
+| Agent 08 애플리케이션 보안 | appsec-engineer | 구현 준비 단계 위협 모델링·보안 요구사항 제안, 보안 핵심 기능 심층 검토 | 없음 |
+| Agent 09 접근성 | a11y-auditor | 화면 구현의 WCAG 2.2 AA 점검 | 없음 |
 
 - 서브에이전트는 다른 서브에이전트를 호출할 수 없으므로, 모든 배정과 전달은 메인 세션이 한다.
 - 서브에이전트는 사람에게 직접 질문하지 않는다. 질문은 보고에 담고, 메인 세션이 모아 사람에게 묻고 답을 다시 전달한다.
@@ -35,7 +38,7 @@
 | docs/design/README.md (컨셉, 화면별 디자인 상태, 토큰, 컴포넌트 상태), Figma | designer (Figma 시안은 사람) | 사람 (디자인 승인) |
 | docs/engineering/tech-stack.md, docs/engineering/architecture.md, docs/decisions/ (ADR) | 총괄 (ADR은 제안) | 사람 (ADR 채택) |
 | OpenAPI, docs/engineering/database.md, 마이그레이션 | backend-dev | 총괄 확인, 구조 변경은 사람 |
-| docs/reports/ | qa, reviewer (보고를 총괄이 저장) | — |
+| docs/reports/ | qa, reviewer, security-auditor, appsec-engineer, a11y-auditor (보고를 총괄이 저장) | — |
 | docs/PIPELINE.md, docs/requests/, docs/engineering/deploy.md | 총괄 | 단계·결정 항목은 사람 |
 
 ## 단계와 승인
@@ -45,10 +48,10 @@
 |---|---|---|---|---|
 | 1 | 기획: 분석 → 질문 → 정형화 → 고도화 | planner (총괄이 질문 중계) | 요구사항 원문이 requirements.md에 있음 | **기획 승인**: 스펙·인수 기준·MoSCoW 확정 |
 | 2 | UI/UX: UX 설계 → UI 정형화 → 시안(사람·Figma) → 고도화 | designer | 기획 승인 | **디자인 승인**: 화면 상세 확정, 화면별 상태 "승인" |
-| 3 | 구현 준비: 기술 설계, API 계약, DB | 총괄(기술), backend-dev(API·DB) | 기획 승인, 화면이 있으면 디자인 승인 | 스택·구조는 ADR 채택 |
+| 3 | 구현 준비: 기술 설계, 위협 모델, API 계약, DB | 총괄(기술), appsec-engineer(위협 모델), backend-dev(API·DB) | 기획 승인, 화면이 있으면 디자인 승인 | 스택·구조는 ADR 채택 |
 | 4 | 구현 계획 | 총괄 (/plan-work) | 1~3 완료, 구현에 필요한 기준 문서가 모두 있음 | **계획 승인** |
 | 5 | 구현 | backend-dev → frontend-dev | 계획 승인 | — |
-| 6 | 검증 | qa, reviewer, designer(화면), planner(요구사항 충족) | 구현 보고 | **결과 승인** → PR → 병합(사람) |
+| 6 | 검증 | qa, reviewer, designer·a11y-auditor(화면), planner(요구사항 충족), security-auditor·appsec-engineer(보안 해당 시) | 구현 보고 | **결과 승인** → PR → 병합(사람) |
 
 - 진입 조건이 안 되면 그 단계를 시작하지 않고, 어떤 앞 단계가 필요한지 사람에게 알린다. 예: 디자인 승인 없이 화면 구현 요청이 오면 2단계를 먼저 제안한다.
 - 이미 승인된 기획·디자인 범위 안의 작업(버그 수정, 승인된 화면의 구현)은 1·2단계를 건너뛰고 4단계부터 한다. 범위를 벗어나면 해당 단계로 돌아간다.
@@ -66,7 +69,7 @@
 4. 구현 준비(기술 기준, API 계약, DB)가 안 되어 있으면 먼저 한다.
 5. /plan-work 형식의 계획서(규모, 작업 목록, 담당, 검증 계획)를 보여 주고 계획 승인을 받는다. 규모 "소"는 사람이 원하면 총괄이 직접 한다. 이때도 계획은 보여 준다.
 6. 작업마다 담당 에이전트에 작업 지시서(작업 ID, 범위, 제외, 완료 조건, 참고 문서)를 건넨다. 선행 작업 순서를 지킨다.
-7. 구현 보고를 받으면 검증 에이전트(qa, reviewer, 화면 작업이면 designer, 기능 작업이면 planner)에 작업 지시서와 보고를 건넨다. 서로 독립적이므로 동시에 호출한다.
+7. 구현 보고를 받으면 검증 에이전트(qa, reviewer, 화면 작업이면 designer와 a11y-auditor, 기능 작업이면 planner, 인증·권한·시크릿·DB 정책·LLM 호출이 바뀌면 security-auditor, 보안 핵심 기능의 "대" 규모 작업이면 appsec-engineer)에 작업 지시서와 보고를 건넨다. 서로 독립적이므로 동시에 호출한다.
 8. 하나라도 "수정 필요"면 정리해서 같은 작업 에이전트에 다시 지시한다. 원인이 기획·디자인이면 해당 단계로 돌려보낸다. 왕복은 최대 2회이고, 넘거나 "사람 판단 필요"가 있으면 사람에게 넘긴다.
 9. 모두 통과하면 통합 보고(변경 요약, 검증별 판정과 실행한 검사, 남은 결함·제안, 위험)를 하고 결과 승인을 받는다. 그 뒤 PR을 만든다. 병합은 사람이 한다.
 10. 고도화 제안(검증·운영에서 나온 것 포함)은 바로 만들지 않고 requirements.md "고도화 제안"에 모은다. planner가 정리하고, 사람이 채택한 것만 1단계부터 다시 진행한다.
@@ -86,7 +89,9 @@
 - docs/PIPELINE.md: 진행 상태판
 - docs/planning/: 기획 — requirements.md(요구사항 원문·분석·질문·추적·고도화), idea.md, spec-guide.md(스펙 작성 기준)
 - specs/: Spec Kit 스펙(기능 명세, 사용자 시나리오, 인수 기준). Spec Kit 기본 위치라 저장소 루트에 둔다.
-- .specify/: Spec Kit 설정·템플릿·스크립트 (Spec Kit이 관리, 직접 수정하지 않음)
+- .specify/: Spec Kit 설정·템플릿·스크립트 (Spec Kit이 관리, 직접 수정하지 않음). 프로젝트 원칙 파일 .specify/memory/constitution.md도 여기 있다(미사용, 프로젝트 원칙은 이 파일이 기준)
+- .claude/skills/speckit-*: Spec Kit 스킬 9개 (Spec Kit v1.4.5가 설치·관리, 직접 수정하지 않음)
+- .claude/skills/ui-ux-pro-max: UI/UX 규칙·검색 스킬 (gh skill로 v2.15.0 고정 설치, 직접 수정하지 않음)
 - docs/design/: UI/UX — ux.md(IA, 화면 목록, 화면 흐름, 화면 상세), README.md(컨셉, 화면별 디자인 상태, 토큰, 컴포넌트 상태)
 - docs/engineering/: 기술 — tech-stack.md(단일 기준), architecture.md, database.md, deploy.md
 - docs/decisions/: ADR (기존 ADR은 고치지 않고 새 ADR로 대체)
@@ -94,7 +99,8 @@
 - docs/reports/: 테스트·보안 점검 보고서
 - docs/guide/: 사람용 안내서
 - .claude/commands: /refine(요청 접수·정리), /plan-work(단계 판정·구현 계획)
-- .claude/agents: 서브에이전트 정의 파일만 둔다(planner, designer, frontend-dev, backend-dev, qa, reviewer)
+- .claude/agents: 서브에이전트 정의 파일만 둔다(planner, designer, frontend-dev, backend-dev, qa, reviewer, security-auditor, appsec-engineer, a11y-auditor). 07~09는 Agency Agents 원문에 프로젝트 규칙 머리말을 붙인 것이다(출처는 THIRD_PARTY_NOTICES.md)
+- THIRD_PARTY_NOTICES.md: 저장소에 넣은 외부 파일(Spec Kit, UI UX Pro Max, Agency Agents)의 라이선스 고지
 
 ## 파일 읽는 대상
 파일마다 제목 아래에 `> 대상:` 표시가 있다.
@@ -139,6 +145,10 @@
 - 기능 하나가 끝나면 세션을 새로 시작하자고 제안한다. 이어서 알아야 할 내용은 PIPELINE.md에 남긴다.
 - 켜 두는 MCP 서버는 5~6개 이하로 유지한다. 새 MCP·스킬·에이전트 설치는 내용을 먼저 보여 주고 승인을 받는다.
 - 같은 일을 하는 도구는 하나만 쓴다(코드 이해: Trail-code, 기획 문서: Spec Kit).
+- Spec Kit 스킬은 기획용만 쓴다: planner가 `/speckit-specify`, `/speckit-clarify`, `/speckit-checklist`로 스펙을 만든다. `/speckit-plan`, `/speckit-tasks`, `/speckit-analyze`, `/speckit-constitution`은 사람이 지시할 때만 쓰고, 구현 계획은 `/plan-work`로 한다. `/speckit-implement`, `/speckit-converge`는 구현 에이전트 흐름과 겹치므로 쓰지 않는다(settings.json에서 차단).
+- Spec Kit은 git 브랜치를 만들지 않는다(git 확장 미설치). 브랜치는 "규칙"의 이름 형식대로 직접 만든다.
+- UI UX Pro Max는 `--persist`·`--output-dir`로 `design-system/` 폴더를 만들지 않는다. 디자인 기준은 docs/design/ 하나이고, 검색 결과는 designer가 검토해 docs/design/에 정리한다.
+- 스타일·색·글꼴 결정은 designer가 2단계에서만 한다. frontend-dev는 승인된 토큰을 따르고, UI UX Pro Max는 구현 점검(`--domain ux`, `--stack`)에만 쓴다.
 - 운영 DB에는 연결하지 않는다. DB MCP는 개발 DB 전용이다.
 - 외부 API 비용이 드는 작업은 예상 비용을 먼저 알리고 승인을 받는다.
 - 앱의 승인 요청(병합, 배포, 패키지 설치)이 뜨는 명령은 사람이 승인하는 것이 정상 흐름이다. 승인 요청을 피하려고 다른 명령으로 우회하지 않는다.

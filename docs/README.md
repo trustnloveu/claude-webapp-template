@@ -21,6 +21,7 @@
 docs/
 ├─ README.md              이 문서 (문서 지도)
 │                          ※ 기능별 스펙은 docs 밖 저장소 루트 specs/ (Spec Kit 기본 위치)
+│                          ※ Spec Kit 설정은 루트 .specify/, 스킬은 .claude/skills/speckit-* (Spec Kit이 관리)
 ├─ PIPELINE.md            진행 상태판: 현재 단계, 사람 확인 대기, 기능 표, 결정 로그
 │
 ├─ planning/              ① 기획 — 무엇을, 왜, 누구를 위해          담당: 01 기획
@@ -68,6 +69,7 @@ docs/
 | 왜 이 기술(설계)을 골랐나 | [decisions/](decisions/) |
 | 배포는 어떻게, 환경 변수는 무엇이 필요한가 | [engineering/deploy.md](engineering/deploy.md), `.env.example` |
 | 누가 이 문서를 고칠 수 있나 | [../CLAUDE.md](../CLAUDE.md)의 "문서 담당" |
+| 저장소에 넣은 외부 파일의 출처·라이선스는 | [../THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) |
 
 ## 용어
 

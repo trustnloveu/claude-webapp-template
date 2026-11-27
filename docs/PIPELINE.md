@@ -3,7 +3,7 @@
 > 대상: 공용
 
 현재 단계: 0. 환경
-다음 할 일: SETUP.md 1·2단계 완료(2026-11-27). 다음은 SETUP.md 3단계(프로젝트 도구: Spec Kit 확인부터), 4단계(MCP), 5단계(동작 확인). 템플릿 고도화는 별도 세션에서 브랜치·PR로 진행
+다음 할 일: SETUP.md 1·2단계 완료, 3단계는 Trail-code만 보류하고 완료(2026-11-27, PR chore/002-project-tools 병합 대기). 다음은 SETUP.md 4단계(MCP), 5단계(동작 확인). 새 에이전트 07~09와 Spec Kit 스킬은 새 세션에서 목록에 뜨는지 확인. Trail-code는 실제 프로젝트 복사본에 코드 뼈대가 생긴 뒤(3단계 구현 준비 이후) `trail init --dry-run`부터. 템플릿 고도화는 별도 세션에서 브랜치·PR로 진행
 
 ## 사람 확인 대기
 Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람이 승인하면 Claude가 해당 항목을 반영하고 이 목록에서 지웁니다.
@@ -12,6 +12,9 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 |---|---|---|---|
 | 2026-11-27 | SETUP.md(사람용) 명령 갱신 제안: humanizer 설치 줄(`/plugin install humanizer@humanizer`, Claude Code 2.1.142 이상) 추가, Context7을 `npx ctx7 setup`(로그인·API 키)으로 변경, pre-commit 설치를 macOS `brew install pre-commit`으로, 2단계를 "템플릿 저장소 / 프로젝트 복사본" 구분과 PR 흐름에 맞게 정리 | 기타 | docs/guide/SETUP.md |
 | 2026-11-27 | superpowers 설치 여부: 자동 스킬(brainstorming, writing-plans, TDD)이 /refine·/plan-work·planner와 겹쳐 보류. 템플릿 고도화 때 검토 | 결정 | docs/guide/SETUP.md 1단계 |
+| 2026-11-27 | SETUP.md 3단계 명령 갱신 제안(위 항목에 추가): Spec Kit `uvx --from git+https://github.com/github/spec-kit.git@v1.4.5 specify init --here --force --integration claude --script sh --non-interactive`, 명령이 아니라 `.claude/skills/speckit-*`에 설치됨, UI UX Pro Max는 `gh skill install nextlevelbuilder/ui-ux-pro-max-skill .claude/skills/ui-ux-pro-max --agent claude-code --scope project --pin v2.15.0`, Trail-code는 코드가 생긴 뒤 `DO_NOT_TRACK=1`과 `--dry-run` 먼저, Agency Agents는 설치 스크립트 대신 파일 단위로 복사 | 기타 | docs/guide/SETUP.md 3단계 |
+| 2026-11-27 | 사람용 안내서가 에이전트 6개 기준이라 CLAUDE.md(9개)와 다름: docs/guide/roles.md, docs/guide/agents.md, README.md 13줄. 수정할지 결정 필요 | 기타 | CLAUDE.md "역할" |
+| 2026-11-27 | Homebrew 경고: 신뢰하지 않은 탭 `adoptopenjdk/openjdk`가 무시되고 있음. `brew untap adoptopenjdk/openjdk`로 지울지 결정 필요(사람 PC 설정) | 기타 | `brew install uv` 출력 |
 
 종류: 기획 승인 / 디자인 승인 / 계획 승인 / 결과 승인 / 단계 완료 / 결정(ADR 채택, MVP 범위, 스택, 디자인) / PR 병합 / 배포 / 비용 발생 / 기타
 
@@ -46,6 +49,10 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | 전역 도구: diagram-design·humanizer 설치, ccusage는 `DO_NOT_TRACK=1`로 실행만, Context7은 사람이 나중에 직접(`npx ctx7 setup`), 전역 `~/.claude/CLAUDE.md` 작성 | 프로젝트 오너 | docs/guide/SETUP.md 1단계 |
 | 2026-11-27 | 저장소 방식: 템플릿 폴더 자체를 저장소로 관리(GitHub `trustnloveu/claude-webapp-template`, 공개). 실제 프로젝트는 아이디어가 정해지면 복사본으로 만든다 | 프로젝트 오너 | docs/guide/SETUP.md 2단계 |
 | 2026-11-27 | main 보호: 공개 저장소 유지, PR 필수(승인 수 0), 관리자 포함 적용, 강제 푸시·삭제 금지. CI 통과 조건은 CI를 만든 뒤 추가 | 프로젝트 오너 | GitHub 브랜치 보호 설정 |
+| 2026-11-27 | uv를 brew로 설치(PC 전역). Spec Kit v1.4.5를 템플릿에 설치하고 기획용 스킬(specify·clarify·checklist)만 쓴다. plan·tasks·analyze·constitution은 사람 지시 때만, implement·converge는 settings.json에서 차단 | 프로젝트 오너 | CLAUDE.md "구조"·"도구 사용", .claude/settings.json |
+| 2026-11-27 | Trail-code 보류: 전역 훅 5개, 에이전트가 결정을 "학습"으로 자동 저장(결정 로그와 이중 기록), 템플릿에 코드 없음. 실제 프로젝트에 코드가 생긴 뒤 dry-run 확인 후 재검토 | 프로젝트 오너 | 이 PIPELINE "다음 할 일" |
+| 2026-11-27 | UI UX Pro Max v2.15.0을 프로젝트 범위에 설치. `design-system/` 폴더를 만들지 않고, 스타일·색·글꼴 결정은 designer만, frontend-dev는 구현 점검에만 사용 | 프로젝트 오너 | CLAUDE.md "도구 사용" |
+| 2026-11-27 | Agency Agents 3개를 읽기 전용 에이전트로 추가: security-auditor(07), appsec-engineer(08), a11y-auditor(09). 원문 앞에 프로젝트 규칙 머리말, 역할 표·/plan-work 갱신, MIT 고지 | 프로젝트 오너 | .claude/agents/, CLAUDE.md, .claude/commands/plan-work.md, THIRD_PARTY_NOTICES.md |
 
 ## 확인 기록
 사실 확인 결과를 남깁니다. 결정이 아닙니다.
@@ -57,4 +64,9 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | `pre-commit autoupdate` 결과 | gitleaks를 v8.30.0으로만 올림. 최신 릴리스 v8.30.1은 직접 지정 → autoupdate 뒤 릴리스 페이지와 비교 필요 |
 | 2026-11-27 | GitHub 무료 계정의 비공개 저장소 브랜치 보호 | 유료(Pro) 필요로 추정(미확인). 저장소를 공개로 두어 보호 적용 |
 | 2026-11-27 | 위험 명령 훅이 `grep` 패턴 속 `.env` 글자도 차단 | 의도대로 동작(오탐이지만 안전한 쪽). 검사 명령에서 `.env` 글자를 빼고 실행 |
+| 2026-11-27 | Spec Kit v1.4.5 빈 폴더 확인 | `--integration claude` 유효(예전 `--ai` 아님). 비대화형은 `--non-interactive --force` 필요. `.specify/`(constitution 포함)와 `.claude/skills/speckit-*` 9개 생성(`.claude/commands/` 아님). 스펙은 `specs/001-<이름>/spec.md`. /refine·/plan-work와 이름 겹침 없음. 훅·settings·CLAUDE.md를 건드리지 않고, git 브랜치는 git 확장이 없으면 만들지 않음 |
+| 2026-11-27 | settings.json `Skill(...)` deny가 동작하는지 | `Skill(speckit-implement)` 호출 시 "blocked by permission rules"로 차단됨(이 세션에서 확인) |
+| 2026-11-27 | 3단계 설치 도구 버전 | uv 0.13.10(brew, 다른 패키지 변경 없음), Spec Kit v1.4.5(uvx 일회 실행, 전역 설치 없음), UI UX Pro Max v2.15.0(gh skill, 70개 파일). UI UX Pro Max 스크립트는 표준 라이브러리만 쓰고 네트워크·셸 실행 없음(import 확인), 검색 동작 확인 |
+| 2026-11-27 | Trail-code 0.30.5 설치 영향(README·소스 확인, 미설치) | 전역 `~/.claude/settings.json`에 훅 5개(SessionStart, UserPromptSubmit, PreToolUse Bash, PostToolUse, Stop)와 상태줄, 프로젝트 `.mcp.json`·`.claude/skills/trail/`·`.trail/`. npm postinstall이 익명 설치 통계 전송(`DO_NOT_TRACK=1`로 차단). `trail init`은 과거 세션을 Claude Sonnet으로 읽고(사용량 소모) 최근 병합 PR 50개 리뷰를 읽음. Bash 훅은 오류 시 통과(fail-open)라 block-dangerous.sh와 직접 충돌은 없어 보임(추정) |
+| 2026-11-27 | 새 에이전트 07~09가 Agent 목록에 뜨는지 | 미확인. 이 세션은 시작 때 목록을 읽어 반영 안 됨 → 새 세션에서 확인 |
 
