@@ -2,7 +2,7 @@
 
 > 대상: 사람
 
-담당: Agent 02 디자인(designer). 시안은 designer가 HTML로 만들고, 내가 보고 의견을 주고 결정합니다. 탐색은 Stitch(무료), Figma는 선택(유료).
+담당: Agent 02 디자인(designer). 시안은 designer가 HTML로 만들고 내가 보고 의견을 주고 결정합니다. 탐색은 Stitch(무료), Figma는 선택(유료).
 저장 위치: `docs/design/ux.md`(IA·화면 목록·흐름·화면 상세), `docs/design/README.md`(컨셉·토큰·디자인 상태), `docs/design/mockups/`(HTML 시안, 흐름은 그 폴더의 README.md)
 진입 조건: **기획 승인**. 끝에 **디자인 승인**을 받습니다.
 

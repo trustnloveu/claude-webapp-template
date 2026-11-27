@@ -139,6 +139,7 @@ docs/ 폴더와 문서별 내용은 docs/README.md(문서 지도)에 있다. 문
 - 켜 두는 MCP 서버는 5~6개 이하로 유지한다. 새 MCP·스킬·에이전트 설치는 내용을 먼저 보여 주고 승인을 받는다.
 - 같은 일을 하는 도구는 하나만 쓴다(코드 이해: Trail-code, 기획 문서: Spec Kit).
 - 쓸 수 있는 도구와 후보는 docs/engineering/tool-catalog.md에 있다. 작업에 도움이 될 후보가 있으면 직접 설치하지 않고 보고에 "도구 제안"으로 적는다. 목록은 /tool-review로 분기마다 다시 본다.
+- 한국어 윤문(/humanize-korean)은 "대상: 사람" 문서(README.md, docs/guide/, .github/ 템플릿)에만 쓴다. 새로 쓰거나 크게 고친 뒤 마지막에 보수 강도로 적용하고, 코드 블록·명령·경로·표 구조가 그대로인지 대조한다. AI 지시문(CLAUDE.md, .claude/), 공용 기준 문서, 코드 주석, 커밋 메시지에는 쓰지 않는다(규칙 문장이 바뀌면 동작이 달라질 수 있음).
 - Spec Kit 스킬은 기획용만 쓴다: planner가 `/speckit-specify`, `/speckit-clarify`, `/speckit-checklist`로 스펙을 만든다. `/speckit-plan`, `/speckit-tasks`, `/speckit-analyze`, `/speckit-constitution`은 사람이 지시할 때만 쓰고, 구현 계획은 `/plan-work`로 한다. `/speckit-implement`, `/speckit-converge`는 구현 에이전트 흐름과 겹치므로 쓰지 않는다(settings.json에서 차단).
 - Spec Kit은 git 브랜치를 만들지 않는다(git 확장 미설치). 브랜치는 "규칙"의 이름 형식대로 직접 만든다.
 - UI UX Pro Max는 `--persist`·`--output-dir`로 `design-system/` 폴더를 만들지 않는다. 디자인 기준은 docs/design/ 하나이고, 검색 결과는 designer가 검토해 docs/design/에 정리한다.

@@ -1,65 +1,30 @@
-# <프로젝트 이름>
+# Claude Code 웹앱 템플릿
 
 > 대상: 사람
 
-<한 문장 설명: 우리는 <대상>이 <문제>를 <방법>으로 해결하게 돕는다>
+Claude Code로 웹 서비스를 만들 때 쓰는 프로젝트 시작 템플릿입니다. 사람은 요구사항을 주고 결정만 하고 기획·디자인·구현·검증은 역할이 나뉜 AI 에이전트들이 순서대로 맡습니다. 단계마다 사람이 승인해야 다음 단계로 넘어가므로, AI가 "다 됐습니다"라고 해도 무엇을 기준으로 끝났는지 확인할 수 있습니다.
 
-## 처음 시작한다면
+- **이런 분께 맞습니다**: 혼자 또는 작은 팀으로 웹 서비스를 만들면서 AI에게 일을 크게 맡기고 싶지만 방향과 품질은 직접 통제하고 싶은 분
+- **아직 들어 있지 않은 것**: 앱 코드. 언어·프레임워크는 프로젝트마다 다르므로 3단계(구현 준비)에서 정하고 그때 뼈대를 만듭니다
+- **확인한 환경**: macOS, Claude Code CLI 2.1.332 (2026-11-28)
 
-```mermaid
-flowchart LR
-    A["문서 지도 읽기<br/>docs/README.md"] --> B["환경 준비<br/>SETUP.md"]
-    B --> C{"요청이<br/>막연한가?"}
-    C -- 예 --> D["/refine 으로<br/>요청 구체화"]
-    C -- 아니오 --> E["단계별 프롬프트<br/>prompts/"]
-    D --> E
-    E --> F["사람 확인 대기<br/>PIPELINE.md 확인"]
-```
+> 이 저장소에서 새 프로젝트를 만들면, 새 저장소의 README는 그 프로젝트 소개로 바꿉니다([SETUP.md](docs/guide/SETUP.md) 2단계).
 
-0. 처음 참여했다면 [docs/README.md](docs/README.md)의 "읽는 순서"부터 봅니다.
-1. [docs/guide/SETUP.md](docs/guide/SETUP.md)로 환경을 준비합니다.
-2. [docs/guide/prompts/](docs/guide/prompts/README.md)에서 현재 단계의 프롬프트를 고릅니다.
-3. 요청이 막연하면 `/refine <요청>`을 쓰거나 [요청 작성 가이드](docs/guide/request-guide.md)를 봅니다.
-4. 구성원(총괄 + 에이전트 9개)과 진행 흐름은 [프로젝트 구성원](docs/guide/roles.md)에 있습니다. 우선순위는 **기획 → UI/UX 디자인 → 구현**입니다.
-5. 내가 결정하고 챙길 일은 [운영 체크리스트](docs/guide/operations.md)에 있습니다. `docs/PIPELINE.md`의 "사람 확인 대기"를 자주 확인합니다.
+## 무엇이 들어 있나
 
-## 구조
+| 구성 | 내용 | 위치 |
+|---|---|---|
+| 작업 규칙 | AI가 매 세션 읽는 프로젝트 규칙: 역할, 단계와 승인, 문서 담당, Git·시크릿 규칙 | [CLAUDE.md](CLAUDE.md) |
+| 에이전트 9개 | 기획, 디자인, 프론트엔드, 백엔드, QA, 코드 리뷰, AI 코드 보안, 위협 모델링, 접근성 | `.claude/agents/` |
+| 명령 3개 | `/refine` 요청 구체화, `/plan-work` 단계 판정과 작업 계획, `/tool-review` 도구 재검토 | `.claude/commands/` |
+| 안전장치 | 위험 명령 차단 훅, 테스트 점검 훅, 시크릿 커밋 차단(gitleaks), 권한 규칙 | `.claude/hooks/`, `.claude/settings.json` |
+| 기준 문서 양식 | 요구사항, 아이디어, 스펙 작성 기준, 화면 설계, 디자인 시스템, 기술 스택, 아키텍처, DB, 배포, 결정 기록(ADR) | `docs/` |
+| 사람용 안내서 | 설치 순서, 구성원과 흐름, 단계별 프롬프트, 요청 작성법, 운영 체크리스트 | `docs/guide/` |
+| 외부 도구 | Spec Kit(스펙 작성), UI UX Pro Max(디자인 지식), Playwright·Figma MCP | 목록: [도구 목록](docs/engineering/tool-catalog.md) |
 
-| 경로 | 내용 |
-|---|---|
-| `apps/web` | 프론트엔드 |
-| `apps/api` | 백엔드 |
-| `packages/shared` | API 타입(OpenAPI에서 생성) |
-| `docs/` | 모든 기준 문서. **[docs/README.md](docs/README.md)가 문서 지도**입니다 |
-| `docs/planning/` | 기획: 요구사항, 아이디어, 스펙 작성 기준 |
-| `specs/` | 기능별 스펙 (Spec Kit 기본 위치) |
-| `docs/design/` | UI/UX: 화면 설계, 디자인 시스템 |
-| `docs/engineering/` | 기술: 스택, 아키텍처, DB, 배포 |
-| `docs/guide/` | 사람용 안내서: 설치, 역할, 단계별 프롬프트, 요청 작성 가이드, 운영 체크리스트, 에이전트 관리 |
+## 일하는 방식
 
-## 파일 읽는 대상
-
-파일마다 제목 아래에 `> 대상:` 표시가 있습니다.
-
-| 대상 | 파일 | 누가 쓰고 누가 읽나 | 사람이 직접 고쳐도 되나 |
-|---|---|---|---|
-| **AI** | `CLAUDE.md`, `apps/*/CLAUDE.md`, `.claude/`(설정·훅·명령), `.mcp.json` | 사람이 쓰고 Claude가 매 세션 자동으로 읽는 지시문 | 됨. 규칙을 바꿀 때만 고치고, 고친 뒤 새 세션에서 확인 |
-| **공용** | `docs/PIPELINE.md`, `docs/planning/idea.md`, `specs/`, `docs/design/`, `docs/engineering/tech-stack.md`, `docs/decisions/`, `docs/engineering/architecture.md`, `docs/engineering/database.md`, `docs/engineering/deploy.md`, `docs/reports/`, `docs/requests/` | 사람이 결정하고 Claude가 작성하는 프로젝트의 기준 문서 | 됨. 결정은 사람이, 정리는 Claude가 |
-| **사람** | `README.md`, `docs/guide/`, `.github/` 템플릿 | 사람이 읽고 복사해 쓰는 안내서. Claude는 지시로 따르지 않음 | 됨. 자유롭게 |
-
-Claude가 사람용 안내서의 내용을 따르게 하려면 내용을 붙여 넣거나 "docs/guide/…대로 해"라고 직접 가리킵니다.
-
-## 로컬 실행
-
-<3단계 설계 후 채움>
-
-## 진행 상황
-
-[docs/PIPELINE.md](docs/PIPELINE.md)
-
-## 사람과 Claude의 역할
-
-◆ 표시가 사람이 승인하는 지점입니다. 승인이 있어야 다음 단계로 넘어갑니다.
+순서는 **기획 → UI/UX 디자인 → 구현**입니다. ◆에서 사람이 승인해야 다음으로 넘어갑니다.
 
 ```mermaid
 flowchart LR
@@ -70,22 +35,86 @@ flowchart LR
     RA --> M["PR 병합 (사람)"]
 ```
 
-| | 사람 | Claude |
+| 단계 | 사람이 하는 일 | AI가 하는 일 |
 |---|---|---|
-| 요청 | 요구사항을 제시한다 | 원문을 기록하고 어느 단계부터 필요한지 판정한다(`/refine`, `/plan-work`) |
-| 기획 | 질문에 답하고 **기획 승인** | 01 기획이 분석·정형화·고도화한다 |
-| UI/UX | 시안을 보고 의견을 주고 결정한 뒤 **디자인 승인** (Stitch 탐색은 선택) | 02 디자인이 IA·화면·디자인 시스템을 설계하고 HTML 시안을 만들고 고친다 |
-| 계획 | **계획 승인** | 총괄이 구현 작업을 나누고 배정한다 |
-| 구현·검증 | 지켜본다 | 03·04가 만들고 05·06·02·01(+ 해당 시 07~09)이 동시에 검증한다 |
-| 결과 | **결과 승인**, 병합한다 | 검증 결과를 하나로 합쳐 보고한다 |
-| 결정 | 확정한다(단계 완료, MVP, 스택, 디자인, 병합, 배포) | 선택지와 근거를 제안하고 "사람 확인 대기"에 남긴다 |
-| 작업 | 승인 요청에 답한다 | 계획을 보여 주고, 승인 후 작업하고, 검증 결과를 보고한다 |
-| 기록 | 결정 로그·ADR 채택을 승인한다 | 문서를 갱신하고 제안에는 `(제안)`을 붙인다 |
-| 시크릿 | 값을 직접 넣는다 | 변수 이름만 다룬다 |
+| 요청 | 만들고 싶은 것을 말한다 | 원문을 기록하고 빈칸을 질문으로 채워 요청서를 만든다(`/refine`) |
+| 기획 | 질문에 답하고 **기획 승인** | 기획 에이전트가 요구사항을 분석해 스펙과 인수 기준(완료 판정 기준)을 쓴다. 승인 전에 리뷰 에이전트가 대화 맥락 없이 스펙만 읽고 빈틈을 찾는다 |
+| UI/UX | HTML 시안을 보고 의견을 준 뒤 **디자인 승인** | 디자인 에이전트가 화면 구조·흐름·디자인 시스템을 설계하고 시안을 만든다 |
+| 계획 | **계획 승인** | 총괄(메인 세션)이 작업을 나누고 담당 에이전트를 정한다(`/plan-work`) |
+| 구현·검증 | 지켜본다 | 백엔드·프론트엔드 에이전트가 만들고 QA·리뷰·디자인·접근성·보안 에이전트가 동시에 검증한다 |
+| 결과 | **결과 승인** 후 PR 병합 | 검증 결과를 하나로 묶어 보고하고 PR을 만든다. 병합은 하지 않는다 |
 
-Claude가 기술적으로 할 수 없거나 먼저 물어야 하는 것:
+결정(MVP 범위, 기술 스택, 디자인, 배포, 유료 서비스, 새 도구 설치)은 항상 사람이 합니다. AI는 선택지와 근거를 정리해 [docs/PIPELINE.md](docs/PIPELINE.md)의 "사람 확인 대기"에 올립니다.
+
+## 빠르게 시작하기
+
+**필요한 것**: [Claude Code](https://claude.com/claude-code) CLI(2.1.332에서 확인), GitHub 계정과 [gh](https://cli.github.com/), Homebrew, python3 3.9 이상, Node.js(MCP 실행용)
+
+1. **새 저장소 만들기**: 이 저장소는 GitHub 템플릿 저장소입니다. 아래 명령은 이 저장소의 git 이력 없이 내 저장소를 만들고 내려받습니다.
+
+   ```bash
+   gh repo create <프로젝트-이름> --template trustnloveu/claude-webapp-template --public --clone
+   ```
+
+2. **환경 준비**: [docs/guide/SETUP.md](docs/guide/SETUP.md)를 1단계부터 따라갑니다. 전역 도구 설치, 브랜치 정리와 보호, 프로젝트 도구 확인, MCP 연결, 동작 확인 순서입니다.
+
+3. **첫 요청**: 새 저장소 폴더에서 Claude Code를 열고 만들고 싶은 것을 생각나는 대로 적습니다.
+
+   ```text
+   /refine 동네 미용실 예약 사이트를 만들고 싶어. 손님이 날짜와 시간을 고르고 전화번호로 예약해.
+   ```
+
+   AI가 결정할 것을 라운드별로 묻고(질문마다 추천 답을 붙임) 정리한 요청서를 보여 줍니다. 확인하면 `/plan-work`로 어느 단계부터 할지 정합니다.
+
+4. **진행 상황 보기**: [docs/PIPELINE.md](docs/PIPELINE.md)에 현재 단계, 다음 할 일, 사람이 승인할 항목이 있습니다. 새 세션을 열면 AI가 이 파일부터 읽고 요약합니다.
+
+단계마다 붙여 넣어 쓰는 프롬프트는 [docs/guide/prompts/](docs/guide/prompts/README.md)에 있습니다.
+
+## 폴더 구조
+
+| 경로 | 내용 |
+|---|---|
+| `CLAUDE.md` | AI가 따르는 프로젝트 규칙 |
+| `.claude/` | 에이전트, 명령, 훅, 권한 설정 |
+| `apps/web`, `apps/api` | 프론트엔드·백엔드(3단계에서 뼈대 생성) |
+| `packages/shared` | OpenAPI에서 생성하는 API 타입(직접 수정 금지) |
+| `specs/` | 기능별 스펙(Spec Kit 기본 위치) |
+| `docs/` | 기준 문서. [docs/README.md](docs/README.md)가 문서 지도입니다 |
+| `docs/guide/` | 사람용 안내서 |
+
+### 파일마다 읽는 대상이 정해져 있습니다
+
+파일 제목 아래 `> 대상:` 표시를 보면 누구를 위한 파일인지 알 수 있습니다.
+
+| 대상 | 파일 | 성격 |
+|---|---|---|
+| **AI** | `CLAUDE.md`, `apps/*/CLAUDE.md`, `.claude/`, `.mcp.json` | AI가 따르는 지시문. 규칙을 바꿀 때만 고치고 고친 뒤 새 세션에서 확인합니다 |
+| **공용** | `docs/PIPELINE.md`, `docs/planning/`, `specs/`, `docs/design/`, `docs/engineering/`, `docs/decisions/`, `docs/reports/`, `docs/requests/` | 프로젝트의 사실과 결정. 결정은 사람이, 정리는 AI가 합니다 |
+| **사람** | `README.md`, `docs/guide/`, `.github/` 템플릿 | 사람이 읽는 안내서. AI는 이 안의 문장을 지시로 따르지 않습니다 |
+
+AI에게 안내서대로 하게 하려면 내용을 붙여 넣거나 "docs/guide/…대로 해"라고 직접 가리킵니다.
+
+## 안전장치
 
 | 처리 | 대상 |
 |---|---|
-| **차단** (실행되지 않음) | `.env` 읽기, 강제 푸시, 보호 브랜치(dev, prd, main, release/*) 푸시, 보호 브랜치에서 커밋, 위험한 삭제 명령 |
-| **실행 전 승인 요청** (사람이 허용해야 실행) | PR 병합, 릴리스 태그, 패키지 설치, 배포 명령 |
+| **차단**(실행되지 않음) | `.env` 읽기, 강제 푸시, 보호 브랜치(`dev`, `prd`, `main`, `release/*`)에 커밋·푸시, 위험한 삭제 명령, 시크릿이 든 커밋 |
+| **실행 전 승인 요청** | PR 병합, 릴리스 태그, 패키지 설치, 배포 명령 |
+| **한 번 멈추고 확인** | 코드를 바꾸고 테스트 없이 작업을 끝내려 할 때 |
+
+auto 모드(승인 없이 자동 실행)에서는 승인 요청이 뜨지 않으므로, 설치·배포·병합이 있는 작업은 기본 모드에서 합니다.
+
+## 더 읽을거리
+
+| 알고 싶은 것 | 문서 |
+|---|---|
+| 구성원(총괄 + 에이전트 9개)과 흐름 | [docs/guide/roles.md](docs/guide/roles.md) |
+| 요청을 잘 쓰는 법 | [docs/guide/request-guide.md](docs/guide/request-guide.md) |
+| 사람이 챙길 일과 결정 목록 | [docs/guide/operations.md](docs/guide/operations.md) |
+| 에이전트를 더하거나 뺄 때 | [docs/guide/agents.md](docs/guide/agents.md) |
+| 쓰는 도구와 후보, 교체 기준 | [docs/engineering/tool-catalog.md](docs/engineering/tool-catalog.md) |
+| 이 템플릿을 만들며 정한 결정 | [docs/PIPELINE.md](docs/PIPELINE.md)의 결정 로그 |
+
+## 라이선스
+
+이 템플릿 자체의 라이선스는 아직 정하지 않았습니다. 저장소에 들어 있는 외부 파일(Spec Kit, UI UX Pro Max, Agency Agents)은 MIT 라이선스이며 고지는 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)에 있습니다.

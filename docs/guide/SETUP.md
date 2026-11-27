@@ -27,7 +27,7 @@ flowchart LR
 
 ## 1. 전역 도구 (PC에 한 번만)
 
-이미 설치한 PC면 건너뜁니다. 필요한 것: Claude Code CLI 2.1.142 이상, Homebrew, gh, python3 3.9 이상(위험 명령 훅, 한국어 윤문 스크립트).
+이미 설치한 PC면 건너뜁니다. 필요한 것: Claude Code CLI(2.1.332에서 확인), Homebrew, gh, python3 3.9 이상(위험 명령 훅, 한국어 윤문 스크립트).
 
 Claude Code 세션 안에서 실행합니다.
 
@@ -115,7 +115,9 @@ git commit -m "chore: PIPELINE 초기화"
 git push
 ```
 
-`docs/PIPELINE.md` 맨 위의 복사 안내 주석은 이때 지워도 되고, 나중에 Claude에게 지우라고 해도 됩니다.
+   `README.md`는 템플릿 소개이므로, 아이디어가 정해지면 프로젝트 소개(이름, 한 문장 설명, 실행 방법)로 바꿉니다. 1단계 기획 승인 뒤에 하면 내용을 채우기 쉽습니다.
+
+`docs/PIPELINE.md` 맨 위의 복사 안내 주석은 이때 지워도 되고 나중에 Claude에게 지우라고 해도 됩니다.
 
 3. `prd`에서 `dev`를 만들어 올리고 기본 브랜치로 지정합니다.
 
@@ -140,7 +142,7 @@ gh repo edit --default-branch dev && git remote set-head origin -a
 - [ ] UI UX Pro Max v2.15.0: `.claude/skills/ui-ux-pro-max`
 - [ ] Agency Agents 3개: `.claude/agents/`의 security-auditor(07), appsec-engineer(08), a11y-auditor(09). 출처는 `THIRD_PARTY_NOTICES.md`
 
-이 폴더들은 `.claude/settings.json`에서 Claude의 수정이 막혀 있습니다. 업그레이드할 때만 아래 명령을 쓰고, 바뀐 내용을 읽은 뒤 PR로 올립니다.
+이 폴더들은 `.claude/settings.json`에서 Claude의 수정이 막혀 있습니다. 업그레이드할 때만 아래 명령을 쓰고 바뀐 내용을 읽은 뒤 PR로 올립니다.
 
 ```bash
 # Spec Kit (uv 필요). 버전을 바꾸려면 @v1.4.5 부분을 바꿉니다
@@ -150,11 +152,11 @@ uvx --from git+https://github.com/github/spec-kit.git@v1.4.5 specify init --here
 gh skill install nextlevelbuilder/ui-ux-pro-max-skill .claude/skills/ui-ux-pro-max --agent claude-code --scope project --pin v2.15.0
 ```
 
-- Spec Kit은 버전마다 옵션과 폴더가 바뀝니다. 업그레이드 전에 빈 폴더에서 먼저 실행해 보고, `CLAUDE.md`의 "구조"·`docs/README.md`·`specs/README.md`와 맞는지 확인합니다.
+- Spec Kit은 버전마다 옵션과 폴더가 바뀝니다. 업그레이드 전에 빈 폴더에서 먼저 실행해 보고 `CLAUDE.md`의 "구조"·`docs/README.md`·`specs/README.md`와 맞는지 확인합니다.
 - Agency Agents는 설치 스크립트(전역 `~/.claude/agents/`에 복사)를 쓰지 않습니다. 필요한 에이전트 파일만 내용을 읽고 `.claude/agents/`에 복사한 뒤, 프로젝트 규칙 머리말을 붙이고 `THIRD_PARTY_NOTICES.md`에 고지를 추가합니다. 에이전트를 추가하면 [에이전트 관리](agents.md)대로 함께 고칠 곳을 고칩니다.
 
 ### Trail-code (보류)
-코드 지도·팀 지식 도구입니다. 전역 훅 5개를 설치하고, 결정을 "학습"으로 자동 저장해 결정 로그와 겹쳐서 보류했습니다. 3단계(구현 준비)에서 코드 뼈대가 생긴 뒤 다시 검토합니다. 그때는 아래처럼 사용 통계를 끄고 미리보기부터 합니다.
+코드 지도·팀 지식 도구입니다. 전역 훅 5개를 설치하고 결정을 "학습"으로 자동 저장해 결정 로그와 겹쳐서 보류했습니다. 3단계(구현 준비)에서 코드 뼈대가 생긴 뒤 다시 검토합니다. 그때는 아래처럼 사용 통계를 끄고 미리보기부터 합니다.
 
 ```bash
 DO_NOT_TRACK=1 npm install -g @trailhq/trail-code
@@ -162,16 +164,16 @@ trail init --agents claude --dry-run
 ```
 
 ### Claude Code Setup (선택, 코드가 생긴 뒤)
-Anthropic 공식 플러그인(`anthropics/claude-plugins-official`의 `claude-code-setup`)입니다. 코드를 읽고 이 프로젝트에 맞는 훅·스킬·MCP·서브에이전트를 분야마다 1~2개 추천하며, 파일은 고치지 않습니다(읽기 전용). 템플릿에는 코드가 없어 설치하지 않았습니다. 3단계에서 코드 뼈대가 생긴 뒤 한 번 써 볼 만합니다.
+Anthropic 공식 플러그인(`anthropics/claude-plugins-official`의 `claude-code-setup`)입니다. 코드를 읽고 이 프로젝트에 맞는 훅·스킬·MCP·서브에이전트를 분야마다 1~2개 추천하며 파일은 고치지 않습니다(읽기 전용). 템플릿에는 코드가 없어 설치하지 않았습니다. 3단계에서 코드 뼈대가 생긴 뒤 한 번 써 볼 만합니다.
 - 설치는 내가 결정합니다(새 플러그인 설치는 사람 결정). Claude Code에서 `/plugin`을 열어 공식 마켓플레이스의 `claude-code-setup`을 찾습니다.
-- "이 프로젝트에 맞는 자동화를 추천해 줘"라고 하면 추천 목록이 나옵니다. 추천은 바로 넣지 않고, 이미 있는 도구와 겹치는지(CLAUDE.md "같은 일을 하는 도구는 하나만") 보고 고릅니다. MCP는 켜 둔 개수 기준(5~6개)도 봅니다.
+- "이 프로젝트에 맞는 자동화를 추천해 줘"라고 하면 추천 목록이 나옵니다. 추천은 바로 넣지 않고 이미 있는 도구와 겹치는지(CLAUDE.md "같은 일을 하는 도구는 하나만") 보고 고릅니다. MCP는 켜 둔 개수 기준(5~6개)도 봅니다.
 
 ## 4. MCP 연결
 
 `.mcp.json`에 Figma와 Playwright가 등록되어 있습니다.
 
 - [ ] Figma (선택): HTTP 방식(`https://mcp.figma.com/mcp`). 처음 사용할 때 Figma 계정으로 인증합니다. 무료(Starter) 플랜이나 View·Collab 좌석은 MCP 읽기 도구가 월 20회로 제한되고, View 좌석에서 쓰기가 되는지는 확인되지 않았습니다. 시안을 Figma에서 다루려면 Professional 이상의 Full 또는 Dev 좌석을 검토합니다(비용 발생, 사람 결정)
-- [ ] 시안은 기본적으로 Figma 없이 진행합니다. designer가 `docs/design/mockups/`에 HTML 시안을 만들고, 탐색이 필요하면 Google Stitch(stitch.withgoogle.com, 무료, MCP 연결 없이 웹에서 사용)를 씁니다. Stitch 무료 범위는 월 수백 회(공식 수치 미확인)이고 유료화될 수 있습니다. 흐름은 `docs/design/mockups/README.md`
+- [ ] 시안은 기본적으로 Figma 없이 진행합니다. designer가 `docs/design/mockups/`에 HTML 시안을 만들고 탐색이 필요하면 Google Stitch(stitch.withgoogle.com, 무료, MCP 연결 없이 웹에서 사용)를 씁니다. Stitch 무료 범위는 월 수백 회(공식 수치 미확인)이고 유료화될 수 있습니다. 흐름은 `docs/design/mockups/README.md`
 - [ ] Playwright: `npx @playwright/mcp@latest`. 설치된 Google Chrome을 쓰므로 브라우저 추가 설치가 필요 없습니다. 실행하면 `.playwright-mcp/` 폴더가 생깁니다(.gitignore에 포함)
 - [ ] 데스크탑 앱과 별개로, 터미널 CLI(`claude mcp list`)에서는 두 서버가 "승인 대기"로 나옵니다. CLI로 쓸 때 처음 한 번 승인합니다
 - [ ] 백엔드 작업을 시작할 때 DB MCP(개발 DB 전용), 배포 후 Sentry MCP 추가
