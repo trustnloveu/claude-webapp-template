@@ -80,4 +80,5 @@
 
 ## 결과
 - 2026-11-28 사람이 A~F 전부 적용 승인. 설치·삭제한 것 없음.
-- PR: https://github.com/trustnloveu/claude-webapp-template/pull/16
+- PR: https://github.com/trustnloveu/claude-webapp-template/pull/16 (2026-11-28 병합)
+- 추가 요청 반영(Humanizer 교체, G·H·I): `chore/018-tool-catalog` PR. PR #16이 병합된 뒤에 푸시된 커밋이라 새 PR로 옮김
