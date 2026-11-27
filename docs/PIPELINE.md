@@ -7,8 +7,8 @@
 - 세션을 시작하면 이 파일의 상태, 다음 할 일, "사람 확인 대기"를 요약한다.
 - 아래 결정 로그와 확인 기록은 템플릿을 만들며 정한 근거다. 복사본에는 넘어가지 않는다.
 
-템플릿 상태: v1 완성 승인 대기 (고도화 1차 PR #4, 2차 PR #5 병합, GitHub Template repository 설정 켬)
-다음 할 일: 사람이 "템플릿 v1 완성"을 승인하면 상태를 "v1 완성"으로 바꾼다(원하면 v1.0.0 태그). 그 뒤 실제 프로젝트는 SETUP.md 2단계의 `gh repo create --template`으로 복사본을 만들어 시작한다. 템플릿을 더 고칠 일이 생기면 이 저장소에서 새 브랜치로 진행한다
+템플릿 상태: v1 완성 (2026-11-27 사람 승인. 고도화 1차 PR #4, 2차 PR #5, 관리판 전환 PR #6 병합, GitHub Template repository 설정 켬)
+다음 할 일: 아이디어가 정해지면 SETUP.md 2단계의 `gh repo create --template`으로 복사본을 만들어 복사본에서 0단계부터 시작한다. 템플릿을 더 고칠 일이 생기면 이 저장소에서 새 브랜치(chore/번호-설명)로 진행한다. 태그(v1.0.0)는 붙이지 않음(원하면 사람 승인 후)
 
 ## 사람 확인 대기
 Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람이 승인하면 Claude가 해당 항목을 반영하고 이 목록에서 지웁니다.
@@ -16,7 +16,6 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 날짜 | 항목 | 종류 | 근거·위치 |
 |---|---|---|---|
 | 2026-11-27 | Homebrew 경고: 신뢰하지 않은 탭 `adoptopenjdk/openjdk`가 무시되고 있음. `brew untap adoptopenjdk/openjdk`로 지울지 결정 필요(사람 PC 설정) | 기타 | `brew install uv` 출력 |
-| 2026-11-27 | 템플릿 v1 완성 승인: 고도화 1·2차와 SETUP 1~5단계 확인을 마침(Trail-code 보류, DB·Sentry MCP는 복사본에서 나중에). 승인하면 이 파일의 "템플릿 상태"를 "v1 완성"으로 바꾸고, 원하면 `v1.0.0` 태그를 붙인다(태그 명령은 따로 승인) | 결과 승인 | 이 파일 결정 로그·확인 기록 |
 | 2026-11-27 | 에이전트 머리말 `effort:`가 실제로 적용되는지 확인: Claude Code Agent 도구 설명(에이전트 정의 frontmatter에서 effort를 읽음)을 근거로 넣었고, CLI로는 확인 방법을 찾지 못함(추정). 병합 후 새 세션에서 확인, 안 되면 값을 빼거나 /plan-work 지정 방식만 쓴다 | 기타 | .claude/agents/*.md |
 | 2026-11-27 | `packages/shared` 직접 수정 금지를 settings.json deny로 강제할지: 생성 파일 위치가 3단계에서 정해지므로 이번엔 넣지 않음(README.md는 사람이 채울 칸이 있어 폴더 전체 deny는 부적합). 3단계에서 생성 폴더가 정해지면 추가 제안 | 결정 | CLAUDE.md "구조", .claude/settings.json |
 | 2026-11-27 | 07~09 에이전트(Agency Agents 원문 234~567줄) 축약 여부: 긴 지시문이 판단을 방해할 수 있다는 참조 리포트 의견. 호출될 때만 읽히고 외부 원문이라 보류 후보 | 결정 | .claude/agents/security-auditor.md, a11y-auditor.md, appsec-engineer.md |
@@ -39,6 +38,7 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | uv를 brew로 설치(PC 전역). Spec Kit v1.4.5를 템플릿에 설치하고 기획용 스킬(specify·clarify·checklist)만 쓴다. plan·tasks·analyze·constitution은 사람 지시 때만, implement·converge는 settings.json에서 차단 | 프로젝트 오너 | CLAUDE.md "구조"·"도구 사용", .claude/settings.json |
 | 2026-11-27 | Trail-code 보류: 전역 훅 5개, 에이전트가 결정을 "학습"으로 자동 저장(결정 로그와 이중 기록), 템플릿에 코드 없음. 실제 프로젝트에 코드가 생긴 뒤 dry-run 확인 후 재검토 | 프로젝트 오너 | 이 PIPELINE "다음 할 일" |
 | 2026-11-27 | UI UX Pro Max v2.15.0을 프로젝트 범위에 설치. `design-system/` 폴더를 만들지 않고, 스타일·색·글꼴 결정은 designer만, frontend-dev는 구현 점검에만 사용 | 프로젝트 오너 | CLAUDE.md "도구 사용" |
+| 2026-11-27 | 템플릿 v1 완성 승인: 고도화 1·2차, 관리판 전환, SETUP 1~5단계 확인 완료(Trail-code 보류, DB·Sentry MCP는 복사본에서 나중에) | 프로젝트 오너 | 이 파일, PR #4~#6 |
 | 2026-11-27 | 템플릿 저장소는 starter 원본이라 프로젝트 단계(0~5)를 진행하지 않는다. 이 파일을 "템플릿 관리판"으로 바꾸고(단계 목록·기능 표 제거, 복사본은 PIPELINE-template.md 사용), "0단계 완료 승인"은 "템플릿 v1 완성 승인"으로 대체 | 프로젝트 오너 | 이 파일, docs/PIPELINE-template.md |
 | 2026-11-27 | 템플릿 고도화 2차 승인: 복사본은 GitHub 템플릿 저장소 기능(`gh repo create --template`)으로 만들고 `docs/PIPELINE-template.md`로 PIPELINE을 초기화(템플릿 저장소의 PIPELINE은 템플릿 자체 상태판으로 유지), SETUP.md를 실제 확인한 명령으로 갱신(3단계는 "템플릿에 포함, 확인만"), 사람용 안내서를 에이전트 9개 기준으로 수정 | 프로젝트 오너 | docs/PIPELINE-template.md, docs/guide/SETUP.md, docs/guide/roles.md, docs/guide/agents.md, README.md |
 | 2026-11-27 | superpowers는 설치하지 않는다: 자동 스킬(brainstorming, writing-plans, TDD)이 /refine·/plan-work·planner와 겹침. 필요하면 새 결정으로 재검토 | 프로젝트 오너 | docs/guide/SETUP.md 1단계 |
