@@ -15,6 +15,8 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 
 | 날짜 | 항목 | 종류 | 근거·위치 |
 |---|---|---|---|
+| 2026-11-28 | `chore/017-video-methods` PR 병합 (영상 3편 반영 A~F) | PR 병합 | docs/requests/2026-11-28-video-methods.md |
+| 2026-11-28 | 한국어 Humanizer(im-not-ai) 설치 여부. 제안: 보류(전역 설치, Humanizer와 역할 겹침) | 결정 | docs/requests/2026-11-28-video-methods.md 비교표 |
 
 종류: 기획 승인 / 디자인 승인 / 계획 승인 / 결과 승인 / 단계 완료 / 결정(ADR 채택, MVP 범위, 스택, 디자인) / PR 병합 / 배포 / 비용 발생 / 기타
 
@@ -45,6 +47,7 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | 복사본 브랜치 전략: `feat/*` → `dev`(개발, 기본 브랜치, 병합 시 개발 서버 자동 배포) → `prd`(운영, 릴리스 PR 병합 시 수동 승인) + 태그 `vX.Y.Z`. 로컬은 브랜치를 두지 않고 내 PC에서 작업 브랜치를 실행하는 환경. 보호 대상에 `dev`·`prd` 추가(훅·settings.json deny·복사본 ruleset), main·master·release/*는 유지. 복사 직후 `release/v1`→`prd` 이름 변경, `dev` 생성·기본 브랜치 지정(SETUP.md 2단계) | 프로젝트 오너 | docs/guide/SETUP.md, docs/engineering/deploy.md, .claude/hooks/block-dangerous.sh, .claude/settings.json, CLAUDE.md "규칙" |
 | 2026-11-27 | 시안 흐름: designer가 `docs/design/mockups/`에 HTML 시안(+ `tokens.css`)을 만들고 사람과 수정·재생성하며 결정. 결정되면 Playwright로 PNG로 바꿔 외부 채널에 업로드(공유·보관용). 다음 수정은 저장소 HTML에서 시작하고, 외부 채널은 사람이 직접 고쳤을 때만 다시 읽는다. 탐색용 시안 도구는 Stitch(기본·무료, 사람이 웹에서 사용), Figma는 선택(유료). 업로드 흐름은 복사본 2단계 첫 시안 때 시험. 반영은 `chore/012` | 프로젝트 오너 | 이 대화 |
 | 2026-11-27 | Agency Agents 3개를 읽기 전용 에이전트로 추가: security-auditor(07), appsec-engineer(08), a11y-auditor(09). 원문 앞에 프로젝트 규칙 머리말, 역할 표·/plan-work 갱신, MIT 고지 | 프로젝트 오너 | .claude/agents/, CLAUDE.md, .claude/commands/plan-work.md, THIRD_PARTY_NOTICES.md |
+| 2026-11-28 | 유튜브 영상 3편 반영안 A~F 적용 승인: A 제품 원칙(판단 기준) 칸과 CLAUDE.md 기준 1줄, B /refine 질문을 라운드 방식(Grill Me)으로 교체, C reviewer 문서 검토 모드(새 맥락 검토, Elephant-Goldfish)·문서 어긋남 기준을 기획 승인·ADR 채택 전에, D tech-stack.md 구현 순서(Ponytail), E Stop 훅으로 코드 변경 시 테스트 점검, F SETUP.md에 Claude Code Setup 안내. 플러그인은 하나도 설치하지 않고 방법만 옮김. Claude-Mem·FreeLLMAPI·21st.dev MCP·Archify·Marketing Skills·HyperFrames 제외 | 프로젝트 오너 | docs/requests/2026-11-28-video-methods.md |
 
 ## 확인 기록
 사실 확인 결과를 남깁니다. 결정이 아닙니다.
@@ -76,4 +79,5 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | 공유용 온라인 문서 갱신 | 개발 파이프라인 가이드(시안 흐름 10곳, 브랜치 5곳, 흐름도 라벨, 변경 기록 1줄)와 Claude 개발 환경 설계안(시안 흐름 11곳, 브랜치 2곳)을 PR #11·#12 기준으로 문구만 수정. 두 문서의 에이전트 목록(6개, 실제 9개)은 기존 불일치로 남음 |
 | 2026-11-27 | 시안 PNG 내보내기 시험(임시 폴더의 시험용 HTML) | `file://` 주소는 Playwright MCP가 차단("Access to file: protocol is blocked"). `python3 -m http.server`(127.0.0.1)로 열면 `tokens.css`까지 적용돼 표시됨. 스크린샷 저장은 저장소와 `.playwright-mcp/`만 허용(저장소 밖 경로 거부), 저장소 기준 상대 경로로 `docs/design/mockups/exports/`에 저장 확인. 시험 파일은 삭제. 외부 업로드는 미시험(복사본 2단계) → mockups/README.md 5번에 절차 반영 |
 | 2026-11-28 | 사람용 안내서 가독성 보완(chore/015) Mermaid 렌더링 | README·SETUP·roles·operations·agents·request-guide·prompts/README에 넣은 Mermaid 10개를 mermaid 11.4.1로 렌더링해 모두 오류 없음(로컬 검사 페이지). GitHub 화면 확인은 PR에서. 옛 단계 번호(request-guide "5. 기능 루프" 등, 4-feature-loop "5-4~5-6", prompts/README "0~6단계")를 PIPELINE 0~5에 맞춤 |
+| 2026-11-28 | 영상 반영(chore/017) 검증 | Stop 훅 테스트 `test-check-tests-on-stop.sh` 13/13 통과(코드만 변경 시 멈춤, 같은 변경 두 번째·테스트 동반·자동 생성 파일·stop_hook_active·입력 오류·git 아님은 통과), 기존 `test-block-dangerous.sh` 64/64 통과, settings.json JSON 문법 통과, 이 저장소(코드 없음)에서 훅 실행 시 통과. 실제 세션에서 Stop 훅이 뜨는지는 병합 후 복사본에서 확인 필요 |
 | 2026-11-27 | 공유용 온라인 문서 에이전트 수 | 두 문서의 에이전트 표기를 9개로 수정(가이드: 구성원 표에 07~09 행 추가, 소개·완료 조건·폴더 구조. 설계안: 표·목록·요약 6곳) |

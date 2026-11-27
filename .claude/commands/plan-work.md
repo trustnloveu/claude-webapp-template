@@ -41,12 +41,13 @@ $ARGUMENTS
    **규모별 검증 선택** (필요한 에이전트만 쓴다)
    | 규모 | 예 | 작업 | 검증 |
    |---|---|---|---|
-   | 기획 | 요구사항 분석, 스펙 작성 | planner (질문은 총괄이 중계) | 사람 (기획 승인) |
+   | 기획 | 요구사항 분석, 스펙 작성 | planner (질문은 총괄이 중계) | reviewer(문서 검토), 사람 (기획 승인) |
    | 디자인 | UX 설계, 화면 상세, 디자인 시스템 | designer | planner(기획 대응 확인), 사람 (디자인 승인) |
    | 소 | 문서·설정 1~2개 파일, 문구 수정 | 메인 세션 | 없음 또는 reviewer |
    | 중 | 한쪽 영역 구현(API만, 화면만) | frontend-dev 또는 backend-dev | qa + reviewer (+ 화면이면 designer + a11y-auditor) |
    | 대 | 화면+API 기능 구현 | backend-dev → frontend-dev | qa + reviewer + designer + a11y-auditor + planner |
-   | 기술 설계 | 스택 비교, 구조·패턴 정의 | 메인 세션 (+ 위협 모델은 appsec-engineer) | reviewer(일관성), 사람 (ADR 채택) |
+   | 기술 설계 | 스택 비교, 구조·패턴 정의 | 메인 세션 (+ 위협 모델은 appsec-engineer) | reviewer(문서 검토), 사람 (ADR 채택) |
+   - reviewer 문서 검토는 지시서에 문서 경로와 참고 자료만 넣고 대화 내용·작성 의도를 넣지 않는다(새 맥락에서 봐야 숨은 가정이 드러남). 지적은 사람이 고칠지 정한다.
    - 인증·권한·시크릿·DB 정책·LLM 호출이 바뀌면 규모와 관계없이 security-auditor를 검증에 더한다. 인증·결제·개인정보 같은 보안 핵심 기능의 "대" 규모 작업이면 appsec-engineer도 더한다.
    사람이 다르게 판단하면 그 판단을 따른다.
 

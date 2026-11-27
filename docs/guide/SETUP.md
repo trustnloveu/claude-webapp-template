@@ -126,7 +126,7 @@ gh repo edit --default-branch dev && git remote set-head origin -a
 ```
 
 - [ ] `gh repo view --json defaultBranchRef`가 `dev`이고, `git branch -a`에 `release/v1`이 없는지 확인
-- [ ] `.claude/hooks/block-dangerous.sh`에 실행 권한이 있는지 확인(`ls -l`에 `x`). 없으면 `chmod +x .claude/hooks/block-dangerous.sh`
+- [ ] `.claude/hooks/block-dangerous.sh`와 `check-tests-on-stop.sh`에 실행 권한이 있는지 확인(`ls -l`에 `x`). 없으면 `chmod +x .claude/hooks/*.sh`
 - [ ] `dev`·`prd` 브랜치 보호: GitHub 저장소 Settings → Rules → Rulesets에서 대상 브랜치 `dev`, `prd`에 PR 필수(승인 수 0), 예외 없음(관리자 포함), 강제 푸시·삭제 금지. CI 통과 조건은 CI를 만든 뒤 추가
 - [ ] `pre-commit autoupdate`는 최신 릴리스보다 낮은 버전으로 올릴 때가 있습니다. 실행했다면 gitleaks 릴리스 페이지의 최신 버전과 비교합니다
 
@@ -159,6 +159,11 @@ DO_NOT_TRACK=1 npm install -g @trailhq/trail-code
 trail init --agents claude --dry-run
 ```
 
+### Claude Code Setup (선택, 코드가 생긴 뒤)
+Anthropic 공식 플러그인(`anthropics/claude-plugins-official`의 `claude-code-setup`)입니다. 코드를 읽고 이 프로젝트에 맞는 훅·스킬·MCP·서브에이전트를 분야마다 1~2개 추천하며, 파일은 고치지 않습니다(읽기 전용). 템플릿에는 코드가 없어 설치하지 않았습니다. 3단계에서 코드 뼈대가 생긴 뒤 한 번 써 볼 만합니다.
+- 설치는 내가 결정합니다(새 플러그인 설치는 사람 결정). Claude Code에서 `/plugin`을 열어 공식 마켓플레이스의 `claude-code-setup`을 찾습니다.
+- "이 프로젝트에 맞는 자동화를 추천해 줘"라고 하면 추천 목록이 나옵니다. 추천은 바로 넣지 않고, 이미 있는 도구와 겹치는지(CLAUDE.md "같은 일을 하는 도구는 하나만") 보고 고릅니다. MCP는 켜 둔 개수 기준(5~6개)도 봅니다.
+
 ## 4. MCP 연결
 
 `.mcp.json`에 Figma와 Playwright가 등록되어 있습니다.
@@ -173,6 +178,7 @@ trail init --agents claude --dry-run
 ## 5. 동작 확인
 
 - [ ] Claude Code에서 `.env` 파일을 읽으라고 시키면 훅이 "차단됨"으로 막는다(파일이 없어도 됨)
+- [ ] `bash .claude/hooks/test-check-tests-on-stop.sh`가 모두 통과한다(코드만 바꾸고 테스트 없이 끝내려 할 때 멈추는 훅)
 - [ ] 테스트 브랜치에서 가짜 시크릿을 커밋하면 gitleaks가 막는다. 확인 뒤 파일과 테스트 브랜치를 지운다
 - [ ] 새 세션에서 `docs/PIPELINE.md를 읽고 현재 단계를 요약해 줘.`라고 하면 "0. 환경"이라고 답한다
 - [ ] 새 세션의 에이전트 목록에 9개(planner, designer, frontend-dev, backend-dev, qa, reviewer, security-auditor, appsec-engineer, a11y-auditor)가 보인다
