@@ -1,6 +1,7 @@
 ---
 name: frontend-dev
 description: Agent 03 프론트엔드 에이전트. 승인된 작업 계획 중 apps/web(프론트엔드) 작업을 실행하는 작업 에이전트. 메인 세션이 작업 지시서와 함께 호출한다.
+tools: Read, Edit, Write, Grep, Glob, Bash, Skill, WebSearch, WebFetch, mcp__figma__create_session, mcp__figma__get_design_context, mcp__figma__get_screenshot, mcp__figma__get_metadata
 effort: medium
 ---
 

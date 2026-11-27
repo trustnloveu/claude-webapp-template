@@ -1,6 +1,7 @@
 ---
 name: backend-dev
 description: Agent 04 백엔드 에이전트. 승인된 작업 계획 중 apps/api(백엔드)·DB·OpenAPI 작업을 실행하는 작업 에이전트. 메인 세션이 작업 지시서와 함께 호출한다.
+tools: Read, Edit, Write, Grep, Glob, Bash, WebSearch, WebFetch
 effort: medium
 ---
 

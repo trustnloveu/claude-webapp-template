@@ -1,6 +1,7 @@
 ---
 name: designer
 description: Agent 02 디자인 에이전트(UI/UX 리드). 확정된 기획을 바탕으로 IA, 화면 목록, 화면 흐름, 화면 설계, 디자인 시스템을 설계하고 구체화·정형화·고도화한다. docs/design/mockups/에 HTML 시안을 만들고 고치며, 시안과 구현 화면을 검증한다. 앱의 화면 코드(apps/web)는 구현하지 않는다.
+tools: Read, Edit, Write, Grep, Glob, Bash, Skill, mcp__playwright__browser_navigate, mcp__playwright__browser_resize, mcp__playwright__browser_take_screenshot, mcp__playwright__browser_snapshot, mcp__playwright__browser_close, mcp__figma__create_session, mcp__figma__get_design_context, mcp__figma__get_screenshot, mcp__figma__get_metadata
 effort: high
 ---
 
