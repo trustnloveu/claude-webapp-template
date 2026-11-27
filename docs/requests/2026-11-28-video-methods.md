@@ -70,6 +70,15 @@
 | — | Marketing Skills, HyperFrames (2) | — | 제외 | 개발 템플릿 범위 밖. 복사본에서 필요하면 결정 |
 | — | 한국어 Humanizer im-not-ai (2) | — | 보류 | 전역 설치, Humanizer와 역할 겹침 |
 
+## 추가 요청 (2026-11-28)
+원문: "한국어 Humanizer (im-not-ai) 로 교체해줘. 영문으로 문서나 주석을 달 이유는 없어. docs/guide/agents.md 는 수정해도되. 병합하는걸로하는걸로. 'ECC·superpowers', '설치 없이 방법만 옮긴 것', '제외한 것'의 오픈소스 별표(사용량,인기도,개발자들의좋은반응)을 고려해서 기존 구성이 outdated하거나 인지도 혹은 사용범용성이 상대적으로 많이 떨어지거나하면 교체하는 방향도 고려해줘. 스킬이라는 게 시간에따라 계속 새로운게 나오고 기존게 교체될 가능성도 높고 더 좋은 범용적인 게 나오기도해서 그런 사항들까지 또 고려해서 앞전의 배제하는 걸 검토해주면 좋겠어. 추가로, 앞으로 사용할 가능성이 있는 스킬/툴이 있으면 에이전트가 고려할 수 있는 선택지로 남아있으면 좋겠어."
+
+결과:
+- Humanizer → im-not-ai 교체(전역), agents.md reviewer 역할 갱신
+- 26개 도구의 GitHub 수치(별, 월평균 별, 최근 업데이트, 열린 이슈)를 조사해 재검토. 지금 구성은 분야 1위이거나 대안과 2배 안쪽 차이라 유지. 결과와 수치는 [tool-catalog.md](../engineering/tool-catalog.md)
+- 사람 승인(G·H·I): 도구 목록 문서, `/tool-review` 명령과 교체 기준, qa 오류 분석 절차
+
 ## 결과
 - 2026-11-28 사람이 A~F 전부 적용 승인. 설치·삭제한 것 없음.
-- PR: https://github.com/trustnloveu/claude-webapp-template/pull/16
+- PR: https://github.com/trustnloveu/claude-webapp-template/pull/16 (2026-11-28 병합)
+- 추가 요청 반영(Humanizer 교체, G·H·I): `chore/018-tool-catalog` PR. PR #16이 병합된 뒤에 푸시된 커밋이라 새 PR로 옮김

@@ -27,16 +27,18 @@ flowchart LR
 
 ## 1. 전역 도구 (PC에 한 번만)
 
-이미 설치한 PC면 건너뜁니다. 필요한 것: Claude Code CLI 2.1.142 이상(humanizer 요구), Homebrew, gh, python3 3.9 이상(위험 명령 훅).
+이미 설치한 PC면 건너뜁니다. 필요한 것: Claude Code CLI 2.1.142 이상, Homebrew, gh, python3 3.9 이상(위험 명령 훅, 한국어 윤문 스크립트).
 
 Claude Code 세션 안에서 실행합니다.
 
 ```text
 /plugin marketplace add cathrynlavery/diagram-design
 /plugin install diagram-design@diagram-design
-/plugin marketplace add blader/humanizer
-/plugin install humanizer@humanizer
+/plugin marketplace add epoko77-ai/im-not-ai
+/plugin install humanize-korean@im-not-ai
 ```
+
+- humanize-korean(im-not-ai): AI가 쓴 한국어 글의 번역투·AI 말투를 사실·수치는 그대로 두고 다듬습니다. 쓸 때는 `/humanize-korean`. 문서와 주석은 한국어로 쓰므로 영어 기준인 blader/humanizer 대신 씁니다(2026-11-28 교체). 훅은 없고 스크립트는 표준 라이브러리만 씁니다. 에이전트 9개가 함께 설치되며 그중 5개는 그 저장소 개발용이라 쓰지 않습니다.
 
 터미널에서 실행합니다.
 
@@ -54,7 +56,7 @@ DO_NOT_TRACK=1 npx ccusage@latest
 - [ ] 전역 `~/.claude/CLAUDE.md`에 개인 규칙 작성(응답 언어, 커밋 스타일, 선호 스택)
 - [ ] 상태줄에 컨텍스트 사용률 표시(ccstatusline 등)
 
-superpowers는 설치하지 않습니다. 자동으로 실행되는 스킬(brainstorming, writing-plans, TDD)이 `/refine`·`/plan-work`·planner와 겹치기 때문입니다(템플릿 결정 로그 2026-11-27).
+superpowers는 설치하지 않습니다. 자동으로 실행되는 스킬(brainstorming, writing-plans, TDD)이 `/refine`·`/plan-work`·planner와 겹치기 때문입니다(템플릿 결정 로그 2026-11-27). 다른 후보 도구와 제외 이유, 교체 기준은 `docs/engineering/tool-catalog.md`에 있고 `/tool-review`로 분기마다 다시 봅니다.
 
 ## 2. 저장소 만들기
 

@@ -11,7 +11,7 @@
 | 구성원 | 맡는 주체 | 하는 일 | 수정 권한 |
 |---|---|---|---|
 | 프로젝트 오너 | 사람 | 요구사항 제시, 4개 승인(기획·디자인·계획·결과), 결정, 일정, 시안 결정(Stitch 탐색은 선택), 외부 채널 업로드(직접 하거나 Claude에 승인), 병합·배포 | 전부 |
-| 총괄 (PM/오케스트레이터) | 메인 세션 (/refine, /plan-work) | 요청 접수·단계 판정, 배정, 질문 중계, 진입 조건 확인, 결과 통합, 기술 설계 | docs/PIPELINE.md, docs/requests/, docs/engineering/tech-stack.md, docs/engineering/architecture.md, ADR(제안), docs/engineering/deploy.md |
+| 총괄 (PM/오케스트레이터) | 메인 세션 (/refine, /plan-work) | 요청 접수·단계 판정, 배정, 질문 중계, 진입 조건 확인, 결과 통합, 기술 설계 | docs/PIPELINE.md, docs/requests/, docs/engineering/tech-stack.md, docs/engineering/architecture.md, docs/engineering/tool-catalog.md, ADR(제안), docs/engineering/deploy.md |
 | Agent 01 기획 (리드) | planner | 요구사항 분석·구체화·정형화·고도화, 요구사항 충족 검토 | docs/planning/, specs/ |
 | Agent 02 디자인 (UI/UX 리드) | designer | IA·화면 목록·화면 흐름·화면 상세 설계, 디자인 시스템, HTML 시안 작성·수정, 고도화, 시안·구현 검증 | docs/design/(시안 docs/design/mockups/ 포함), 토큰 파일 |
 | Agent 03 프론트엔드 | frontend-dev | 승인된 기획·디자인대로 화면 구현, API 연동 | apps/web |
@@ -40,6 +40,7 @@
 | OpenAPI, docs/engineering/database.md, 마이그레이션 | backend-dev | 총괄 확인, 구조 변경은 사람 |
 | docs/reports/ | qa, reviewer, security-auditor, appsec-engineer, a11y-auditor (보고를 총괄이 저장) | — |
 | docs/PIPELINE.md, docs/requests/, docs/engineering/deploy.md | 총괄 | 단계·결정 항목은 사람 |
+| docs/engineering/tool-catalog.md (도구 목록) | 총괄 | 설치·교체·제외는 사람 |
 
 ## 단계와 승인
 프로젝트도, 기능 하나도 같은 순서를 따른다. 각 단계는 담당 역할이 진입 조건을 확인하고 시작하며, 사람의 승인으로 끝난다.
@@ -137,6 +138,7 @@ docs/ 폴더와 문서별 내용은 docs/README.md(문서 지도)에 있다. 문
 - 기능 하나가 끝나면 세션을 새로 시작하자고 제안한다. 이어서 알아야 할 내용은 PIPELINE.md에 남긴다.
 - 켜 두는 MCP 서버는 5~6개 이하로 유지한다. 새 MCP·스킬·에이전트 설치는 내용을 먼저 보여 주고 승인을 받는다.
 - 같은 일을 하는 도구는 하나만 쓴다(코드 이해: Trail-code, 기획 문서: Spec Kit).
+- 쓸 수 있는 도구와 후보는 docs/engineering/tool-catalog.md에 있다. 작업에 도움이 될 후보가 있으면 직접 설치하지 않고 보고에 "도구 제안"으로 적는다. 목록은 /tool-review로 분기마다 다시 본다.
 - Spec Kit 스킬은 기획용만 쓴다: planner가 `/speckit-specify`, `/speckit-clarify`, `/speckit-checklist`로 스펙을 만든다. `/speckit-plan`, `/speckit-tasks`, `/speckit-analyze`, `/speckit-constitution`은 사람이 지시할 때만 쓰고, 구현 계획은 `/plan-work`로 한다. `/speckit-implement`, `/speckit-converge`는 구현 에이전트 흐름과 겹치므로 쓰지 않는다(settings.json에서 차단).
 - Spec Kit은 git 브랜치를 만들지 않는다(git 확장 미설치). 브랜치는 "규칙"의 이름 형식대로 직접 만든다.
 - UI UX Pro Max는 `--persist`·`--output-dir`로 `design-system/` 폴더를 만들지 않는다. 디자인 기준은 docs/design/ 하나이고, 검색 결과는 designer가 검토해 docs/design/에 정리한다.
