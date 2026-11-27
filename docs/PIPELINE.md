@@ -8,7 +8,7 @@
 - 아래 결정 로그와 확인 기록은 템플릿을 만들며 정한 근거다. 복사본에는 넘어가지 않는다.
 
 템플릿 상태: v1 완성 (2026-11-27 사람 승인. 고도화 1차 PR #4, 2차 PR #5, 관리판 전환 PR #6 병합, GitHub Template repository 설정 켬)
-다음 할 일: 아이디어가 정해지면 SETUP.md 2단계의 `gh repo create --template`으로 복사본을 만들어 복사본에서 0단계부터 시작한다. 템플릿을 더 고칠 일이 생기면 이 저장소에서 새 브랜치(chore/번호-설명)로 진행한다. 태그(v1.0.0)는 붙이지 않음(원하면 사람 승인 후)
+다음 할 일: 아이디어가 정해지면 SETUP.md 2단계의 `gh repo create --template`으로 복사본을 만들어 복사본에서 0단계부터 시작한다. 템플릿을 더 고칠 일이 생기면 이 저장소에서 새 브랜치(chore/번호-설명)를 기본 브랜치 `release/v1`에서 만들고 PR도 `release/v1`로 보낸다(main 삭제 예정, 결정 로그). 작은 버전은 태그(v1.1.0 등)로 표시(사람 승인 후)
 
 ## 사람 확인 대기
 Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람이 승인하면 Claude가 해당 항목을 반영하고 이 목록에서 지웁니다.
@@ -18,6 +18,7 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | Homebrew 경고: 신뢰하지 않은 탭 `adoptopenjdk/openjdk`가 무시되고 있음. `brew untap adoptopenjdk/openjdk`로 지울지 결정 필요(사람 PC 설정) | 기타 | `brew install uv` 출력 |
 | 2026-11-27 | `packages/shared` 직접 수정 금지를 settings.json deny로 강제할지: 생성 파일 위치가 3단계에서 정해지므로 이번엔 넣지 않음(README.md는 사람이 채울 칸이 있어 폴더 전체 deny는 부적합). 3단계에서 생성 폴더가 정해지면 추가 제안 | 결정 | CLAUDE.md "구조", .claude/settings.json |
 | 2026-11-27 | 07~09 에이전트(Agency Agents 원문 234~567줄) 축약 여부: 긴 지시문이 판단을 방해할 수 있다는 참조 리포트 의견. 호출될 때만 읽히고 외부 원문이라 보류 후보 | 결정 | .claude/agents/security-auditor.md, a11y-auditor.md, appsec-engineer.md |
+| 2026-11-27 | 복사본 브랜치 전략 설계: 사람 의견은 "배포 버전 기준으로 로컬/개발/운영 3개로 나눠 쓴다". 정할 것: 브랜치 이름(예: dev·prod), 브랜치와 배포 환경 연결, "로컬"을 브랜치로 둘지, 훅·settings·ruleset 보호 대상. 주의: 템플릿 복사는 기본 브랜치 `release/v1`을 가져가므로 SETUP.md 2단계에 복사 직후 브랜치 정리 단계 필요. 함께 고칠 곳: docs/guide/SETUP.md(49·52·66줄), docs/guide/operations.md:32, docs/engineering/deploy.md:8 | 결정 | 이 대화, .claude/hooks/block-dangerous.sh |
 | 2026-11-27 | Figma 좌석이 "View"(starter 팀): 읽기는 되지만 Figma 파일 편집·MCP 쓰기 도구는 제한될 수 있음(추정). 2단계 시안을 Figma에서 직접 만들려면 편집 가능 좌석이 필요한지 확인 | 기타 | `mcp__figma__whoami` 결과 |
 
 종류: 기획 승인 / 디자인 승인 / 계획 승인 / 결과 승인 / 단계 완료 / 결정(ADR 채택, MVP 범위, 스택, 디자인) / PR 병합 / 배포 / 비용 발생 / 기타
@@ -34,6 +35,7 @@ Claude가 사람의 승인이 필요한 항목을 여기에 남깁니다. 사람
 | 2026-11-27 | 전역 도구: diagram-design·humanizer 설치, ccusage는 `DO_NOT_TRACK=1`로 실행만, Context7은 사람이 나중에 직접(`npx ctx7 setup`), 전역 `~/.claude/CLAUDE.md` 작성 | 프로젝트 오너 | docs/guide/SETUP.md 1단계 |
 | 2026-11-27 | 저장소 방식: 템플릿 폴더 자체를 저장소로 관리(GitHub `trustnloveu/claude-webapp-template`, 공개). 실제 프로젝트는 아이디어가 정해지면 복사본으로 만든다 | 프로젝트 오너 | docs/guide/SETUP.md 2단계 |
 | 2026-11-27 | main 보호: 공개 저장소 유지, PR 필수(승인 수 0), 관리자 포함 적용, 강제 푸시·삭제 금지. CI 통과 조건은 CI를 만든 뒤 추가 | 프로젝트 오너 | GitHub 브랜치 보호 설정 |
+| 2026-11-27 | 템플릿 저장소 기본 브랜치를 버전 브랜치 `release/v1`로 바꾸고 main은 삭제. 주 버전마다 `release/vN`, 작은 버전은 태그. 보호는 `release/*` 패턴 하나로(GitHub ruleset: main과 같은 PR 필수·관리자 포함·강제 푸시·삭제 금지, 훅·settings.json deny). 훅은 복사본용으로 main·master도 계속 보호. 전역 ~/.claude/CLAUDE.md 규칙도 "기본 브랜치(main 또는 release/*)"로 넓힘. 복사본 전략은 따로 설계(사람 확인 대기) | 프로젝트 오너 | .claude/hooks/block-dangerous.sh, .claude/settings.json, CLAUDE.md, README.md |
 | 2026-11-27 | uv를 brew로 설치(PC 전역). Spec Kit v1.4.5를 템플릿에 설치하고 기획용 스킬(specify·clarify·checklist)만 쓴다. plan·tasks·analyze·constitution은 사람 지시 때만, implement·converge는 settings.json에서 차단 | 프로젝트 오너 | CLAUDE.md "구조"·"도구 사용", .claude/settings.json |
 | 2026-11-27 | Trail-code 보류: 전역 훅 5개, 에이전트가 결정을 "학습"으로 자동 저장(결정 로그와 이중 기록), 템플릿에 코드 없음. 실제 프로젝트에 코드가 생긴 뒤 dry-run 확인 후 재검토 | 프로젝트 오너 | 이 PIPELINE "다음 할 일" |
 | 2026-11-27 | UI UX Pro Max v2.15.0을 프로젝트 범위에 설치. `design-system/` 폴더를 만들지 않고, 스타일·색·글꼴 결정은 designer만, frontend-dev는 구현 점검에만 사용 | 프로젝트 오너 | CLAUDE.md "도구 사용" |

@@ -54,6 +54,9 @@ git push origin +feat/1
 git push origin main
 git push origin HEAD:main
 git push origin refs/heads/master
+git push origin release/v1
+git push origin HEAD:release/v2
+git push origin HEAD:refs/heads/release/v1
 git reset --hard HEAD~1
 psql -c "DROP TABLE users"
 psql -c "drop database app"
@@ -74,9 +77,15 @@ git push origin feat/1-login
 git push -u origin feat/1-login
 node -e "console.log(process.env.HOME)"
 grep -r main src
+git push origin release-notes
+git push origin chore/009-release-branch
 EOF
 
 # --- 브랜치에 따라 달라지는 명령 ---
+check BLOCK "git commit -m x" "$repo"
+check BLOCK "git push" "$repo"
+check BLOCK "git push origin HEAD" "$repo"
+git -C "$repo" switch -q -c release/v1
 check BLOCK "git commit -m x" "$repo"
 check BLOCK "git push" "$repo"
 check BLOCK "git push origin HEAD" "$repo"
