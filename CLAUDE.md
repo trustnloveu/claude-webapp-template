@@ -88,6 +88,7 @@
 - specs/: Spec Kit 스펙(기능 명세, 사용자 시나리오, 인수 기준). Spec Kit 기본 위치라 저장소 루트에 둔다.
 - .specify/: Spec Kit 설정·템플릿·스크립트 (Spec Kit이 관리, 직접 수정하지 않음). 프로젝트 원칙 파일 .specify/memory/constitution.md도 여기 있다(미사용, 프로젝트 원칙은 이 파일이 기준)
 - .claude/skills/speckit-*: Spec Kit 스킬 9개 (Spec Kit v1.4.5가 설치·관리, 직접 수정하지 않음)
+- .claude/skills/ui-ux-pro-max: UI/UX 규칙·검색 스킬 (gh skill로 v2.15.0 고정 설치, 직접 수정하지 않음)
 - docs/design/: UI/UX — ux.md(IA, 화면 목록, 화면 흐름, 화면 상세), README.md(컨셉, 화면별 디자인 상태, 토큰, 컴포넌트 상태)
 - docs/engineering/: 기술 — tech-stack.md(단일 기준), architecture.md, database.md, deploy.md
 - docs/decisions/: ADR (기존 ADR은 고치지 않고 새 ADR로 대체)
@@ -142,6 +143,8 @@
 - 같은 일을 하는 도구는 하나만 쓴다(코드 이해: Trail-code, 기획 문서: Spec Kit).
 - Spec Kit 스킬은 기획용만 쓴다: planner가 `/speckit-specify`, `/speckit-clarify`, `/speckit-checklist`로 스펙을 만든다. `/speckit-plan`, `/speckit-tasks`, `/speckit-analyze`, `/speckit-constitution`은 사람이 지시할 때만 쓰고, 구현 계획은 `/plan-work`로 한다. `/speckit-implement`, `/speckit-converge`는 구현 에이전트 흐름과 겹치므로 쓰지 않는다(settings.json에서 차단).
 - Spec Kit은 git 브랜치를 만들지 않는다(git 확장 미설치). 브랜치는 "규칙"의 이름 형식대로 직접 만든다.
+- UI UX Pro Max는 `--persist`·`--output-dir`로 `design-system/` 폴더를 만들지 않는다. 디자인 기준은 docs/design/ 하나이고, 검색 결과는 designer가 검토해 docs/design/에 정리한다.
+- 스타일·색·글꼴 결정은 designer가 2단계에서만 한다. frontend-dev는 승인된 토큰을 따르고, UI UX Pro Max는 구현 점검(`--domain ux`, `--stack`)에만 쓴다.
 - 운영 DB에는 연결하지 않는다. DB MCP는 개발 DB 전용이다.
 - 외부 API 비용이 드는 작업은 예상 비용을 먼저 알리고 승인을 받는다.
 - 앱의 승인 요청(병합, 배포, 패키지 설치)이 뜨는 명령은 사람이 승인하는 것이 정상 흐름이다. 승인 요청을 피하려고 다른 명령으로 우회하지 않는다.
