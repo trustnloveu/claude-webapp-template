@@ -34,10 +34,10 @@ def current_branch():
     except Exception:
         return ""
 
-PROTECTED = {"main", "master"}
+PROTECTED = {"main", "master", "dev", "prd"}
 
 def is_protected(branch):
-    # main·master와 버전 브랜치(release/로 시작)를 보호한다
+    # 복사본의 dev(개발)·prd(운영), main·master, 템플릿의 버전 브랜치(release/로 시작)를 보호한다
     return branch in PROTECTED or branch.startswith("release/")
 
 # 1) .env 파일: 명령 안의 .env… 이름을 모두 찾아 .example로 끝나는 것만 허용한다.
@@ -104,7 +104,7 @@ for segment in re.split(r"&&|\|\||[;|&\n]", cmd):
         print("BLOCK git reset --hard")
         raise SystemExit
 
-    # 5) 보호 브랜치(main/master/release/*)에서 커밋
+    # 5) 보호 브랜치(dev/prd/main/master/release/*)에서 커밋
     if "commit" in rest:
         b = current_branch()
         if is_protected(b):
@@ -127,12 +127,12 @@ for segment in re.split(r"&&|\|\||[;|&\n]", cmd):
                 raise SystemExit
             dst = r.split(":")[-1]
             if is_protected(dst.removeprefix("refs/heads/")):
-                print("BLOCK 보호 브랜치(main/release/*) 직접 푸시")
+                print("BLOCK 보호 브랜치(dev/prd/main/release/*) 직접 푸시")
                 raise SystemExit
         if not refspecs or all(r in ("HEAD", "@") for r in refspecs):
             b = current_branch()
             if is_protected(b):
-                print("BLOCK 보호 브랜치(main/release/*) 직접 푸시")
+                print("BLOCK 보호 브랜치(dev/prd/main/release/*) 직접 푸시")
                 raise SystemExit
 
 print("OK")
