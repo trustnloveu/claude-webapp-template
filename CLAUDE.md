@@ -86,7 +86,8 @@
 - docs/PIPELINE.md: 진행 상태판
 - docs/planning/: 기획 — requirements.md(요구사항 원문·분석·질문·추적·고도화), idea.md, spec-guide.md(스펙 작성 기준)
 - specs/: Spec Kit 스펙(기능 명세, 사용자 시나리오, 인수 기준). Spec Kit 기본 위치라 저장소 루트에 둔다.
-- .specify/: Spec Kit 설정·템플릿·스크립트 (Spec Kit이 관리, 직접 수정하지 않음)
+- .specify/: Spec Kit 설정·템플릿·스크립트 (Spec Kit이 관리, 직접 수정하지 않음). 프로젝트 원칙 파일 .specify/memory/constitution.md도 여기 있다(미사용, 프로젝트 원칙은 이 파일이 기준)
+- .claude/skills/speckit-*: Spec Kit 스킬 9개 (Spec Kit v1.4.5가 설치·관리, 직접 수정하지 않음)
 - docs/design/: UI/UX — ux.md(IA, 화면 목록, 화면 흐름, 화면 상세), README.md(컨셉, 화면별 디자인 상태, 토큰, 컴포넌트 상태)
 - docs/engineering/: 기술 — tech-stack.md(단일 기준), architecture.md, database.md, deploy.md
 - docs/decisions/: ADR (기존 ADR은 고치지 않고 새 ADR로 대체)
@@ -139,6 +140,8 @@
 - 기능 하나가 끝나면 세션을 새로 시작하자고 제안한다. 이어서 알아야 할 내용은 PIPELINE.md에 남긴다.
 - 켜 두는 MCP 서버는 5~6개 이하로 유지한다. 새 MCP·스킬·에이전트 설치는 내용을 먼저 보여 주고 승인을 받는다.
 - 같은 일을 하는 도구는 하나만 쓴다(코드 이해: Trail-code, 기획 문서: Spec Kit).
+- Spec Kit 스킬은 기획용만 쓴다: planner가 `/speckit-specify`, `/speckit-clarify`, `/speckit-checklist`로 스펙을 만든다. `/speckit-plan`, `/speckit-tasks`, `/speckit-analyze`, `/speckit-constitution`은 사람이 지시할 때만 쓰고, 구현 계획은 `/plan-work`로 한다. `/speckit-implement`, `/speckit-converge`는 구현 에이전트 흐름과 겹치므로 쓰지 않는다(settings.json에서 차단).
+- Spec Kit은 git 브랜치를 만들지 않는다(git 확장 미설치). 브랜치는 "규칙"의 이름 형식대로 직접 만든다.
 - 운영 DB에는 연결하지 않는다. DB MCP는 개발 DB 전용이다.
 - 외부 API 비용이 드는 작업은 예상 비용을 먼저 알리고 승인을 받는다.
 - 앱의 승인 요청(병합, 배포, 패키지 설치)이 뜨는 명령은 사람이 승인하는 것이 정상 흐름이다. 승인 요청을 피하려고 다른 명령으로 우회하지 않는다.

@@ -22,7 +22,9 @@
       "Read(./**/.env.*)",
       "Bash(git push --force:*)",
       "Bash(git push -f:*)",
-      "Bash(git push origin main:*)"
+      "Bash(git push origin main:*)",
+      "Skill(speckit-implement)",
+      "Skill(speckit-converge)"
     ]
   },
   "hooks": {
